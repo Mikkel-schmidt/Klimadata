@@ -33,17 +33,17 @@ if check_password():
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
 
     # Create a selectbox for layers
-    st.session_state['selected_layer'] = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
+    selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
 
     # Filter the styles based on selected layer
-    filtered_styles = layers_styles[layers_styles['layer_name'] == st.session_state['selected_layer']]['style']
+    filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer]['style']
 
     # Create a selectbox for styles based on the selected layer
-    st.session_state['selected_style'] = st.selectbox('Choose a style', filtered_styles)
+    selected_style  = st.selectbox('Choose a style', filtered_styles)
 
     # Display selected options
-    st.write(f'Selected Layer: {st.session_state['selected_layer']}')
-    st.write(f'Selected Style: {st.session_state['selected_style']}')
+    st.write(f'Selected Layer: {selected_layer}')
+    st.write(f'Selected Style: {selected_style }')
 
     # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
     m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
