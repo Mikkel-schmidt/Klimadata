@@ -51,7 +51,7 @@ if check_password():
         # Update session state
         st.session_state['selected_layer'] = selected_layer
         st.session_state['selected_style'] = selected_style
-        st.experimental_rerun()  # Trigger full app rerun
+        st.rerun()  # Trigger full app rerun
 
     # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
     m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
