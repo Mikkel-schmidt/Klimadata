@@ -1,0 +1,14 @@
+# Ignore all JavaScript-related files and directories
+node_modules/
+*.js
+
+# Ignore Azure-related files or directories
+azure/
+*.json
+*.yml
+
+# Ignore temporary or non-essential files
+*.log
+*.tmp
+
+/non-essential/
