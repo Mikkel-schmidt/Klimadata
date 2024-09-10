@@ -7,7 +7,8 @@ from streamlit_functions import check_password
 if check_password():
     st.success('Login success')
 
-    styles_layers = pd.read_csv('layers_and_styles.csv')
+    styles_layers = pd.read_csv('layers_and_styles.csv', header=True, index=False)
+    
     # Create a selectbox for layers
     selected_layer = st.selectbox('Choose a layer', styles_layers['layer_name'].unique())
 
