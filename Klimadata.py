@@ -32,10 +32,10 @@ if check_password():
 
     # Hent lag og stilarter fra filen
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv', sep=';')
-    st.write(layers_styles)
+    #st.write(layers_styles)
 
     # Create a selectbox for layers (frontend-friendly names)
-    selected_layer_name = st.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), key="layer_select")
+    selected_layer_name = st.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), value = 'Skybrud og Ekstremregn', key="layer_select")
 
     # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
     selected_layer_value = layers_styles[layers_styles['layer_name'] == selected_layer_name]['layer_value'].iloc[0]
@@ -44,7 +44,7 @@ if check_password():
     filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name]
 
     # Create a selectbox for styles (frontend-friendly names)
-    selected_style_name = st.selectbox('Vælg en stil', filtered_styles['style_name'], key="style_select")
+    selected_style_name = st.selectbox('Vælg en stil', filtered_styles['style_name'], value='Skybrud og Ekstremregn 30 mm' key="style_select")
 
     # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
     selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
