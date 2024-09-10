@@ -78,7 +78,7 @@ if check_password():
 
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name=selected_layer+selected_style,  # Navn der vises i lagvælgeren
+        name=selected_layer+ ' ' + selected_style,  # Navn der vises i lagvælgeren
         layers=selected_layer,  # Navn på WMS-laget
         styles=selected_style,  # Style for WMS-laget
         fmt='image/png',  # Billedformat
@@ -93,4 +93,4 @@ if check_password():
     folium.LayerControl(position='topright', collapsed=False).add_to(m)
 
     # Hvis du kører det i en Jupyter Notebook, kan du vise kortet direkte med:
-    st_folium(m)
+    st_folium(m, width=700, height=700)
