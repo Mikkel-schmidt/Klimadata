@@ -33,17 +33,17 @@ if check_password():
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
 
     # Create a selectbox for layers
-    selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
+    selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique(), key="layer_select")
 
     # Filter the styles based on selected layer
     filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer]['style']
 
     # Create a selectbox for styles based on the selected layer
-    selected_style  = st.selectbox('Choose a style', filtered_styles)
+    selected_style = st.selectbox('Choose a style', filtered_styles, key="style_select")
 
     # Display selected options
     st.write(f'Selected Layer: {selected_layer}')
-    st.write(f'Selected Style: {selected_style }')
+    st.write(f'Selected Style: {selected_style}')
 
     # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
     m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
@@ -58,28 +58,22 @@ if check_password():
     # Tilføj et baselayer
     folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
 
-    # Create a WMS layer feature group
-    fg = folium.FeatureGroup(name=f"{selected_layer} {selected_style}")
-
-    # Add the WMS layer to the feature group
+    # Tilføj WMS-lag med valgt lag og stil
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name=f"{selected_layer} {selected_style}",  # Name that appears in the layer control
-        layers=selected_layer,  # Layer name
-        styles=selected_style,  # Style for the WMS layer
-        fmt='image/png',  # Image format
-        transparent=True,  # Transparent background
+        name=f"{selected_layer} {selected_style}",  # Navn der vises i lagvælgeren
+        layers=selected_layer,  # Navn på WMS-laget
+        styles=selected_style,  # Style for WMS-laget
+        fmt='image/png',  # Billedformat
+        transparent=True,  # Transparent baggrund
         version='1.1.1',  # WMS version
-        overlay=True,  # Set overlay to True
-        control=True,  # Show layer control
+        overlay=True,  # Sæt overlay til True
+        control=True,  # Vis kontrolelement for at vælge lag
         show=True,
-    ).add_to(fg)
-
-    # Add the feature group (WMS layer) to the map
-    fg.add_to(m)
+    ).add_to(m)
 
     # Tilføj kontrolpanel til at vælge mellem lagene
-    folium.LayerControl(position='topright', collapsed=True).add_to(m)
+    folium.LayerControl(position='topright', collapsed=False).add_to(m)
 
     # Vis kortet i Streamlit og opdater det dynamisk
     st_folium(m, width=1200, height=700)
