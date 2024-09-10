@@ -59,7 +59,7 @@ if check_password():
     folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
 
     # Tilføj WMS-lag med valgt lag og stil
-    folium.raster_layers.WmsTileLayer(
+    fg = folium.raster_layers.WmsTileLayer(
         url=wms_url,
         name=f"{st.session_state['selected_layer']} {st.session_state['selected_style']}",  # Navn der vises i lagvælgeren
         layers=st.session_state['selected_layer'],  # Navn på WMS-laget
@@ -76,4 +76,5 @@ if check_password():
     folium.LayerControl(position='topright', collapsed=True).add_to(m)
 
     # Vis kortet i Streamlit og opdater det dynamisk
-    st_folium(m, center=[latitude, longitude], zoom=15, width=1200, height=700)
+    st_folium(m, feature_group_to_add=fg,
+              width=1200, height=700)
