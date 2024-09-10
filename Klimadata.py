@@ -3,7 +3,7 @@ import pandas as pd
 import folium
 from geopy.geocoders import Nominatim
 
-import streamlit_folium
+from streamlit_folium import st_folium
 from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
