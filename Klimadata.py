@@ -7,6 +7,8 @@ from streamlit_functions import check_password
 if check_password():
     st.success('Login success')
 
+    st.write('Hej')
+
     layers_styles = pd.read_csv('layers_and_styles.csv', header=True, index=False)
     st.write(layers_styles.head())
 
