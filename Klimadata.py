@@ -32,26 +32,24 @@ if check_password():
     # Hent lag og stilarter fra filen
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
 
-    # Create a selectbox for layers
-    selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique(), key="layer_select")
+    # Create a selectbox for layers (frontend-friendly names)
+    selected_layer_name = st.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), key="layer_select")
 
-    # Filter the styles based on selected layer
-    filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer]['style']
+    # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
+    selected_layer_value = layers_styles[layers_styles['layer_name'] == selected_layer_name]['layer_value'].iloc[0]
 
-    # Create a selectbox for styles based on the selected layer
-    selected_style = st.selectbox('Choose a style', filtered_styles, key="style_select")
+    # Filter stilarterne baseret på valgte lag
+    filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name]
+
+    # Create a selectbox for styles (frontend-friendly names)
+    selected_style_name = st.selectbox('Vælg en stil', filtered_styles['style_name'], key="style_select")
+
+    # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
+    selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
 
     # Display selected options
-    st.write(f'Selected Layer: {selected_layer}')
-    st.write(f'Selected Style: {selected_style}')
-
-
-    # If the selected layer or style has changed, trigger a rerun
-    if st.session_state['selected_layer'] != selected_layer or st.session_state['selected_style'] != selected_style:
-        # Update session state
-        st.session_state['selected_layer'] = selected_layer
-        st.session_state['selected_style'] = selected_style
-        st.rerun()  # Trigger full app rerun
+    st.write(f'Valgt lag: {selected_layer_name}')
+    st.write(f'Valgt stil: {selected_style_name}')
 
     # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
     m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
@@ -66,12 +64,12 @@ if check_password():
     # Tilføj et baselayer
     folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
 
-    # Tilføj WMS-lag med valgt lag og stil
+    # Tilføj WMS-lag med backend-lag og stil værdier
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name=f"{selected_layer} {selected_style}",  # Navn der vises i lagvælgeren
-        layers=selected_layer,  # Navn på WMS-laget
-        styles=selected_style,  # Style for WMS-laget
+        name=f"{selected_layer_name} {selected_style_name}",  # Navn der vises i lagvælgeren (frontend-friendly)
+        layers=selected_layer_value,  # Navn på WMS-laget (backend value)
+        styles=selected_style_value,  # Style for WMS-laget (backend value)
         fmt='image/png',  # Billedformat
         transparent=True,  # Transparent baggrund
         version='1.1.1',  # WMS version
