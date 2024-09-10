@@ -76,4 +76,4 @@ if check_password():
     folium.LayerControl(position='topright', collapsed=True).add_to(m)
 
     # Vis kortet i Streamlit og opdater det dynamisk
-    st_folium(m, width=1200, height=700)
+    st_folium(m, center=[latitude, longitude], zoom=15, width=1200, height=700)
