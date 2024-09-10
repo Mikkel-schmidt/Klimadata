@@ -13,7 +13,7 @@ if check_password():
     st.success('Login success')
 
     # Opret en geokodningsfunktion ved hjælp af Nominatim
-    geolocator = Nominatim(user_agent="geoapiExercises")
+    geolocator = Nominatim(user_agent="Klimadata")
 
     # Angiv adressen
     adresse = st.text_input("Skriv adresse", value="Kongens Nytorv 34, 1050 København")
