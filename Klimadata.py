@@ -78,7 +78,7 @@ if check_password():
 
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name='lag',  # Navn der vises i lagvælgeren
+        name=selected_layer+selected_style,  # Navn der vises i lagvælgeren
         layers=selected_layer,  # Navn på WMS-laget
         styles=selected_style,  # Style for WMS-laget
         fmt='image/png',  # Billedformat
