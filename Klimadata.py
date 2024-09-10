@@ -36,7 +36,7 @@ if check_password():
     st.session_state['selected_layer'] = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
 
     # Filter the styles based on selected layer
-    filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer]['style']
+    filtered_styles = layers_styles[layers_styles['layer_name'] == st.session_state['selected_layer']]['style']
 
     # Create a selectbox for styles based on the selected layer
     st.session_state['selected_style'] = st.selectbox('Choose a style', filtered_styles)
