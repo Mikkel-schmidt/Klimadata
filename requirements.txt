@@ -3,6 +3,5 @@ pandas
 matplotlib
 folium
 geopy
-geopy.geocoders
 Nominatim
 streamlit_folium
