@@ -12,6 +12,8 @@ st.set_page_config(layout="wide", page_title="Forside")
 if check_password():
     st.success('Login success')
 
+    
+
     # Opret en geokodningsfunktion ved hjælp af Nominatim
     geolocator = Nominatim(user_agent="Klimadata")
 
@@ -32,14 +34,13 @@ if check_password():
         
         # Tilføj en markør ved den fundne adresse
         folium.Marker([location.latitude, location.longitude], popup=adresse).add_to(m)
-        
-        # Gem kortet som en HTML-fil og vis det
-        m.save('adresse_geokodning_kort.html')
-        
-        # Hvis du kører det i en Jupyter Notebook, kan du vise kortet direkte med:
-        m
+
+
     else:
         st.write("Kunne ikke finde den angivne adresse.")
+
+        # Opret et folium-kort centreret på Danmark
+        m = folium.Map(location=[56, 10], zoom_start=7, crs='EPSG3857')  # EPSG3857 bruges af standard webkort
 
 
 
@@ -64,17 +65,13 @@ if check_password():
     # Definer bounding box for Danmark i EPSG:25832 (omregnet til grader for visning i folium)
     bbox = [[54.5, 8], [58, 15]]  # (latitude, longitude)
 
-    # Opret et folium-kort centreret på Danmark
-    m = folium.Map(location=[location.latitude, location.longitude], zoom_start=17, crs='EPSG3857')  # EPSG3857 bruges af standard webkort
+    
 
     # WMS-serverens URL
     wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
     # Tilføj et tomt baselayer, så ingen WMS-lag er valgt fra starten
     folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
-
-    # Tilføj en markør ved den fundne adresse
-    folium.Marker([location.latitude, location.longitude], popup=adresse).add_to(m)
 
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
@@ -93,4 +90,4 @@ if check_password():
     folium.LayerControl(position='topright', collapsed=False).add_to(m)
 
     # Hvis du kører det i en Jupyter Notebook, kan du vise kortet direkte med:
-    st_folium(m, width=700, height=700)
+    st_folium(m, width=1200, height=700)
