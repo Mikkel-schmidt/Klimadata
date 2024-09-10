@@ -58,19 +58,25 @@ if check_password():
     # Tilføj et baselayer
     folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
 
-    # Tilføj WMS-lag med valgt lag og stil
-    fg = folium.raster_layers.WmsTileLayer(
+    # Create a WMS layer feature group
+    fg = folium.FeatureGroup(name=f"{selected_layer} {selected_style}")
+
+    # Add the WMS layer to the feature group
+    folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name=f"{st.session_state['selected_layer']} {st.session_state['selected_style']}",  # Navn der vises i lagvælgeren
-        layers=st.session_state['selected_layer'],  # Navn på WMS-laget
-        styles=st.session_state['selected_style'],  # Style for WMS-laget
-        fmt='image/png',  # Billedformat
-        transparent=True,  # Transparent baggrund
+        name=f"{selected_layer} {selected_style}",  # Name that appears in the layer control
+        layers=selected_layer,  # Layer name
+        styles=selected_style,  # Style for the WMS layer
+        fmt='image/png',  # Image format
+        transparent=True,  # Transparent background
         version='1.1.1',  # WMS version
-        overlay=True,  # Sæt overlay til True
-        control=True,  # Vis kontrolelement for at vælge lag
+        overlay=True,  # Set overlay to True
+        control=True,  # Show layer control
         show=True,
-    ).add_to(m)
+    ).add_to(fg)
+
+    # Add the feature group (WMS layer) to the map
+    fg.add_to(m)
 
     # Tilføj kontrolpanel til at vælge mellem lagene
     folium.LayerControl(position='topright', collapsed=True).add_to(m)
