@@ -28,9 +28,11 @@ if check_password():
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
     st.header('Klimadata')
+    
 
     # Hent lag og stilarter fra filen
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv', sep=';')
+    st.write(layers_styles)
 
     # Create a selectbox for layers (frontend-friendly names)
     selected_layer_name = st.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), key="layer_select")
