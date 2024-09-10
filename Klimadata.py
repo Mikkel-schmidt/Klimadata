@@ -9,7 +9,7 @@ if check_password():
 
     st.write('Hej')
 
-    layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv', header=True)
+    layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
     st.write(layers_styles.head())
 
     # Create a selectbox for layers
