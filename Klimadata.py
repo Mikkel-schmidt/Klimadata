@@ -2,17 +2,13 @@ import streamlit as st
 import pandas as pd
 import folium
 from geopy.geocoders import Nominatim
-
 from streamlit_folium import st_folium
 from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
 
-
 if check_password():
     st.success('Login success')
-
-    
 
     # Opret en geokodningsfunktion ved hjælp af Nominatim
     geolocator = Nominatim(user_agent="Klimadata")
@@ -23,30 +19,24 @@ if check_password():
     # Geokod adressen (find koordinaterne)
     location = geolocator.geocode(adresse)
 
-    # Tjek om geokodningen lykkedes
     if location:
-        # Print latitude og longitude
         st.success('Adresse fundet')
-        print(f"Latitude: {location.latitude}, Longitude: {location.longitude}")
-        
-        # Opret et Folium-kort centreret på de fundne koordinater
-        m = folium.Map(location=[location.latitude, location.longitude], zoom_start=15, crs='EPSG3857')  # EPSG3857 bruges af standard webkort
-        
-        # Tilføj en markør ved den fundne adresse
-        folium.Marker([location.latitude, location.longitude], popup=adresse).add_to(m)
-
-
+        latitude, longitude = location.latitude, location.longitude
     else:
         st.write("Kunne ikke finde den angivne adresse.")
+        latitude, longitude = 56, 10  # Fallback location to Denmark's center
 
-        # Opret et folium-kort centreret på Danmark
-        m = folium.Map(location=[56, 10], zoom_start=7, crs='EPSG3857')  # EPSG3857 bruges af standard webkort
+    # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
+    m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
+    # Tilføj en markør ved den fundne adresse, hvis tilgængelig
+    if location:
+        folium.Marker([latitude, longitude], popup=adresse).add_to(m)
 
+    st.header('Klimadata')
 
-
+    # Hent lag og stilarter fra filen
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
-    st.write(layers_styles.head())
 
     # Create a selectbox for layers
     selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
@@ -61,33 +51,28 @@ if check_password():
     st.write(f'Selected Layer: {selected_layer}')
     st.write(f'Selected Style: {selected_style}')
 
-
-    # Definer bounding box for Danmark i EPSG:25832 (omregnet til grader for visning i folium)
-    bbox = [[54.5, 8], [58, 15]]  # (latitude, longitude)
-
-    
-
     # WMS-serverens URL
     wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
-    # Tilføj et tomt baselayer, så ingen WMS-lag er valgt fra starten
+    # Tilføj et baselayer
     folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
 
+    # Tilføj WMS-lag med valgt lag og stil
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name=selected_layer+ ' ' + selected_style,  # Navn der vises i lagvælgeren
+        name=f"{selected_layer} {selected_style}",  # Navn der vises i lagvælgeren
         layers=selected_layer,  # Navn på WMS-laget
         styles=selected_style,  # Style for WMS-laget
         fmt='image/png',  # Billedformat
         transparent=True,  # Transparent baggrund
         version='1.1.1',  # WMS version
-        overlay=True,  # Sæt overlay til False, så det er et baselayer
+        overlay=True,  # Sæt overlay til True
         control=True,  # Vis kontrolelement for at vælge lag
         show=True,
-    ).add_to(m)  # Vi tilføjer lagene til kortet, men de er ikke aktive ved start
+    ).add_to(m)
 
-    # Tilføj kontrolpanel til at vælge mellem lagene (baselayers)
-    folium.LayerControl(position='topright', collapsed=False).add_to(m)
+    # Tilføj kontrolpanel til at vælge mellem lagene
+    folium.LayerControl(position='topright', collapsed=True).add_to(m)
 
-    # Hvis du kører det i en Jupyter Notebook, kan du vise kortet direkte med:
+    # Vis kortet i Streamlit og opdater det dynamisk
     st_folium(m, width=1200, height=700)
