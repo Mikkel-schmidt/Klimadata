@@ -7,37 +7,6 @@ from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
 
-# Function to create map based on selected layer and style
-def create_map(latitude, longitude, selected_layer, selected_style):
-    # Create a Folium map centered at the address or fallback location
-    m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
-
-    # Add a marker at the found address if available
-    if location:
-        folium.Marker([latitude, longitude], popup=adresse).add_to(m)
-
-    # WMS server URL with token
-    wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
-
-    # Add the selected WMS layer and style
-    folium.raster_layers.WmsTileLayer(
-        url=wms_url,
-        name=f"{selected_layer} {selected_style}",
-        layers=selected_layer,
-        styles=selected_style,
-        fmt='image/png',
-        transparent=True,
-        version='1.1.1',
-        overlay=True,
-        control=True,
-        show=True,
-    ).add_to(m)
-
-    # Add layer control
-    folium.LayerControl(position='topright', collapsed=True).add_to(m)
-    
-    return m
-
 if check_password():
     st.success('Login success')
 
@@ -63,38 +32,56 @@ if check_password():
     # Hent lag og stilarter fra filen
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
 
-    # Track selected layer and style changes in session state
-    if 'selected_layer' not in st.session_state:
-        st.session_state['selected_layer'] = layers_styles['layer_name'].unique()[0]
-
-    if 'selected_style' not in st.session_state:
-        st.session_state['selected_style'] = layers_styles[layers_styles['layer_name'] == st.session_state['selected_layer']]['style'].iloc[0]
-
     # Create a selectbox for layers
-    selected_layer = st.selectbox(
-        'Choose a layer',
-        layers_styles['layer_name'].unique(),
-        index=list(layers_styles['layer_name'].unique()).index(st.session_state['selected_layer']),
-        key="layer_select"
-    )
+    selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique(), key="layer_select")
 
-    # Filter the styles based on the selected layer
+    # Filter the styles based on selected layer
     filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer]['style']
 
     # Create a selectbox for styles based on the selected layer
-    selected_style = st.selectbox(
-        'Choose a style',
-        filtered_styles,
-        index=list(filtered_styles).index(st.session_state['selected_style']),
-        key="style_select"
-    )
+    selected_style = st.selectbox('Choose a style', filtered_styles, key="style_select")
 
-    # Update session state
-    st.session_state['selected_layer'] = selected_layer
-    st.session_state['selected_style'] = selected_style
+    # Display selected options
+    st.write(f'Selected Layer: {selected_layer}')
+    st.write(f'Selected Style: {selected_style}')
 
-    # Force re-creation of the map each time either the layer or style changes
-    m = create_map(latitude, longitude, selected_layer, selected_style)
 
-    # Display the updated map
+    # If the selected layer or style has changed, trigger a rerun
+    if st.session_state['selected_layer'] != selected_layer or st.session_state['selected_style'] != selected_style:
+        # Update session state
+        st.session_state['selected_layer'] = selected_layer
+        st.session_state['selected_style'] = selected_style
+        st.experimental_rerun()  # Trigger full app rerun
+
+    # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
+    m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+
+    # Tilføj en markør ved den fundne adresse, hvis tilgængelig
+    if location:
+        folium.Marker([latitude, longitude], popup=adresse).add_to(m)
+
+    # WMS-serverens URL
+    wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+
+    # Tilføj et baselayer
+    folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
+
+    # Tilføj WMS-lag med valgt lag og stil
+    folium.raster_layers.WmsTileLayer(
+        url=wms_url,
+        name=f"{selected_layer} {selected_style}",  # Navn der vises i lagvælgeren
+        layers=selected_layer,  # Navn på WMS-laget
+        styles=selected_style,  # Style for WMS-laget
+        fmt='image/png',  # Billedformat
+        transparent=True,  # Transparent baggrund
+        version='1.1.1',  # WMS version
+        overlay=True,  # Sæt overlay til True
+        control=True,  # Vis kontrolelement for at vælge lag
+        show=True,
+    ).add_to(m)
+
+    # Tilføj kontrolpanel til at vælge mellem lagene
+    folium.LayerControl(position='topright', collapsed=False).add_to(m)
+
+    # Vis kortet i Streamlit og opdater det dynamisk
     st_folium(m, width=1200, height=700)
