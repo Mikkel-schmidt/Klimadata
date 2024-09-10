@@ -1,12 +1,7 @@
 import streamlit as st
 
-# Tilgå kode gemt i st.secrets
-kode = st.secrets["code"]
+from streamlit_functions import check_password
 
-# Brug koden i din app
-st.title('Brug af hemmelig kode i Streamlit')
 
-if kode == "din_hemmelige_kode_her":
-    st.write("Koden er korrekt!")
-else:
-    st.write("Forkert kode!")
+if check_password():
+    st.success('Login success')
