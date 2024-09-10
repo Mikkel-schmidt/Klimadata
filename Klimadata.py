@@ -33,17 +33,17 @@ if check_password():
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv')
 
     # Create a selectbox for layers
-    selected_layer = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
+    st.session_state['selected_layer'] = st.selectbox('Choose a layer', layers_styles['layer_name'].unique())
 
     # Filter the styles based on selected layer
     filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer]['style']
 
     # Create a selectbox for styles based on the selected layer
-    selected_style = st.selectbox('Choose a style', filtered_styles)
+    st.session_state['selected_style'] = st.selectbox('Choose a style', filtered_styles)
 
     # Display selected options
-    st.write(f'Selected Layer: {selected_layer}')
-    st.write(f'Selected Style: {selected_style}')
+    st.write(f'Selected Layer: {st.session_state['selected_layer']}')
+    st.write(f'Selected Style: {st.session_state['selected_style']}')
 
     # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
     m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
@@ -61,9 +61,9 @@ if check_password():
     # Tilføj WMS-lag med valgt lag og stil
     folium.raster_layers.WmsTileLayer(
         url=wms_url,
-        name=f"{selected_layer} {selected_style}",  # Navn der vises i lagvælgeren
-        layers=selected_layer,  # Navn på WMS-laget
-        styles=selected_style,  # Style for WMS-laget
+        name=f"{st.session_state['selected_layer']} {st.session_state['selected_style']}",  # Navn der vises i lagvælgeren
+        layers=st.session_state['selected_layer'],  # Navn på WMS-laget
+        styles=st.session_state['selected_style'],  # Style for WMS-laget
         fmt='image/png',  # Billedformat
         transparent=True,  # Transparent baggrund
         version='1.1.1',  # WMS version
