@@ -3,6 +3,7 @@ import pandas as pd
 import folium
 from geopy.geocoders import Nominatim
 
+import streamlit_folium
 from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
@@ -58,3 +59,40 @@ if check_password():
     # Display selected options
     st.write(f'Selected Layer: {selected_layer}')
     st.write(f'Selected Style: {selected_style}')
+
+
+    # Definer bounding box for Danmark i EPSG:25832 (omregnet til grader for visning i folium)
+    bbox = [[54.5, 8], [58, 15]]  # (latitude, longitude)
+
+    # Opret et folium-kort centreret på Danmark
+    m = folium.Map(location=[location.latitude, location.longitude], zoom_start=17, crs='EPSG3857')  # EPSG3857 bruges af standard webkort
+
+    # WMS-serverens URL
+    wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+
+    # Tilføj et tomt baselayer, så ingen WMS-lag er valgt fra starten
+    folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
+
+    # Tilføj en markør ved den fundne adresse
+    folium.Marker([location.latitude, location.longitude], popup=adresse).add_to(m)
+
+    # Loop gennem listen og tilføj hvert lag til kortet som en base layer (kun ét ad gangen)
+    for item in layers_and_styles:
+        folium.raster_layers.WmsTileLayer(
+            url=wms_url,
+            name=item['name'],  # Navn der vises i lagvælgeren
+            layers=item['layer_name'],  # Navn på WMS-laget
+            styles=item['style'],  # Style for WMS-laget
+            fmt='image/png',  # Billedformat
+            transparent=True,  # Transparent baggrund
+            version='1.1.1',  # WMS version
+            overlay=True,  # Sæt overlay til False, så det er et baselayer
+            control=True,  # Vis kontrolelement for at vælge lag
+            show=False,
+        ).add_to(m)  # Vi tilføjer lagene til kortet, men de er ikke aktive ved start
+
+    # Tilføj kontrolpanel til at vælge mellem lagene (baselayers)
+    folium.LayerControl(position='topright', collapsed=False).add_to(m)
+
+    # Hvis du kører det i en Jupyter Notebook, kan du vise kortet direkte med:
+    st_folium(m)
