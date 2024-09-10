@@ -86,7 +86,7 @@ if check_password():
         version='1.1.1',  # WMS version
         overlay=True,  # Sæt overlay til False, så det er et baselayer
         control=True,  # Vis kontrolelement for at vælge lag
-        show=False,
+        show=True,
     ).add_to(m)  # Vi tilføjer lagene til kortet, men de er ikke aktive ved start
 
     # Tilføj kontrolpanel til at vælge mellem lagene (baselayers)
