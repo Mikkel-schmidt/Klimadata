@@ -53,6 +53,9 @@ if check_password():
     st.write(f'Valgt lag: {selected_layer_name}')
     st.write(f'Valgt stil: {selected_style_name}')
 
+    st.write(f'Valgt lag: {selected_layer_value}')
+    st.write(f'Valgt stil: {selected_style_value}')
+
     # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
     m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
