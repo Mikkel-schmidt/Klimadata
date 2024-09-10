@@ -9,7 +9,7 @@ if check_password():
 
     st.write('Hej')
 
-    layers_styles = pd.read_csv('layers_and_styles.csv', header=True, index=False)
+    layers_styles = pd.read_csv('layers_and_styles.csv', header=True)
     st.write(layers_styles.head())
 
     # Create a selectbox for layers
