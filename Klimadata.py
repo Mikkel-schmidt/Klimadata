@@ -19,19 +19,13 @@ if check_password():
     # Geokod adressen (find koordinaterne)
     location = geolocator.geocode(adresse)
 
+    # Tjek om geokodningen lykkedes
     if location:
         st.success('Adresse fundet')
         latitude, longitude = location.latitude, location.longitude
     else:
         st.write("Kunne ikke finde den angivne adresse.")
-        latitude, longitude = 56, 10  # Fallback location to Denmark's center
-
-    # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-    m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
-
-    # Tilføj en markør ved den fundne adresse, hvis tilgængelig
-    if location:
-        folium.Marker([latitude, longitude], popup=adresse).add_to(m)
+        latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
     st.header('Klimadata')
 
@@ -50,6 +44,13 @@ if check_password():
     # Display selected options
     st.write(f'Selected Layer: {selected_layer}')
     st.write(f'Selected Style: {selected_style}')
+
+    # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
+    m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+
+    # Tilføj en markør ved den fundne adresse, hvis tilgængelig
+    if location:
+        folium.Marker([latitude, longitude], popup=adresse).add_to(m)
 
     # WMS-serverens URL
     wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
