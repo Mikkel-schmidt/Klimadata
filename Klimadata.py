@@ -491,7 +491,7 @@ if check_password():
         ]
         gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
-        st.write(gdf.head())
+        #st.write(gdf.head())
 
 
         # Opret et nyt folium-kort centreret over Danmark
@@ -507,7 +507,7 @@ if check_password():
             fill_color="YlGnBu",  # Farveskala
             fill_opacity=0.7,
             line_opacity=0.2,
-            legend_name="Skybrud (mm)"
+            legend_name=valgt_variabel
         ).add_to(m7)
 
         # Tilføj kontrol for lag
