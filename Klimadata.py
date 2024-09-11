@@ -349,8 +349,17 @@ if check_password():
         st.write('Mangler data')
 
     with tab7:
+
+        # Funktion til at konvertere WKT-geometri, og håndtere ikke-strenge
+        def safe_wkt_loads(geom):
+            if isinstance(geom, str):  # Tjek om værdien er en streng
+                return wkt.loads(geom)
+            else:
+                return None  # Returner None, hvis geometrien ikke er en streng
+    
+
         df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
-        df_gdf['geometry'] = df_gdf['SHAPE_geometry'].apply(wkt.loads)
+        df_gdf['geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
         st.write(df_gdf.head())
         gdf = gpd.GeoDataFrame(df_gdf, geometry='geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
