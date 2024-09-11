@@ -488,6 +488,7 @@ if check_password():
 
         with st.spinner('Anvender filtre...'):
             df_gdf = st.session_state['Klimaatlas_gdf']
+            st.write(df_gdf)
             filtered_gdf = df_gdf.loc[
                 (df_gdf['aarstid'] == selected_season_value) &
                 (df_gdf['visningafvaerdier'] == selected_value_type_value) &
