@@ -362,7 +362,7 @@ if check_password():
         df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
         gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
-        st.write(gdf.head())
+        
 
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
@@ -445,7 +445,14 @@ if check_password():
         st.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
         st.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
 
-
+        filtered_gdf = gdf.loc[
+            (gdf['aarstid'] == selected_season_value) &
+            (gdf['visningafvaerdier'] == selected_value_type_value) &
+            (gdf['percentil'] == selected_percentil_value) &
+            (gdf['scenarie'] == selected_scenarie_value) &
+            (gdf['periode'] == selected_periode_value)
+        ]
+        st.write(filtered_gdf.head())
 
 
         # Opret et nyt folium-kort centreret over Danmark
@@ -453,9 +460,9 @@ if check_password():
 
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
         folium.Choropleth(
-            geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
+            geo_data=filtered_gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
             name="Skybrud",
-            data=gdf,
+            data=filtered_gdf,
             columns=["komnavn", "skybrud"],  # Kolonner for kommune og skybrud
             key_on="feature.properties.komnavn",  # Matcher kommunernes navne i GeoJSON
             fill_color="YlGnBu",  # Farveskala
