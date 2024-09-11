@@ -490,12 +490,13 @@ if check_password():
         )
 
         with st.spinner('Anvender filtre...'):
-            filtered_gdf = st.session_state['Klimaatlas_gdf'].loc[
-                (st.session_state['Klimaatlas_gdf']['aarstid'] == selected_season_value) &
-                (st.session_state['Klimaatlas_gdf']['visningafvaerdier'] == selected_value_type_value) &
+            df_gdf = st.session_state['Klimaatlas_gdf']
+            filtered_gdf = df_gdf.loc[
+                (df_gdf['aarstid'] == selected_season_value) &
+                (df_gdf['visningafvaerdier'] == selected_value_type_value) &
                 # (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
-                (st.session_state['Klimaatlas_gdf']['scenarie'] == selected_scenarie_value) &
-                (st.session_state['Klimaatlas_gdf']['periode'] == selected_periode_value)
+                (df_gdf['scenarie'] == selected_scenarie_value) &
+                (df_gdf['periode'] == selected_periode_value)
             ]
             gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
             gdf.to_crs(epsg=4326)
