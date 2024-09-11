@@ -275,22 +275,22 @@ if check_password():
 
         grundvand_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/Grundvand_model.csv', sep=';')
         # Create a selectbox for layers (frontend-friendly names)
-        selected_layer_name = 'Gummistøvleindeks Havvand' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
+        selected_layer_name = st.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select_grundvand")
 
         # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
         selected_layer_value = layers_styles[layers_styles['layer_name'] == selected_layer_name]['layer_value'].iloc[0]
 
         # Filter stilarterne baseret på valgte lag
-        filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name] 
+        #filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name] 
 
         # Create a selectbox for styles (frontend-friendly names)
-        selected_style_name = st.selectbox('Vælg et gummistøvleindeks', filtered_styles['style_name'], index=10, key="style_select_gummi")
+        #selected_style_name = st.selectbox('Vælg et gummistøvleindeks', filtered_styles['style_name'], index=10, key="style_select_gummi")
 
         # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
-        selected_style_value = 'Default'
+        selected_style_value = 'default'
 
         # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
-        selected_layer_value1 = layers_styles[layers_styles['style_name'] == selected_style_name]['layer_value'].iloc[0]
+        #selected_layer_value1 = layers_styles[layers_styles['style_name'] == selected_style_name]['layer_value'].iloc[0]
 
         # Display selected options
         # st.write(f'Valgt lag: {selected_layer_name}')
