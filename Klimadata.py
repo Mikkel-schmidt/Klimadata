@@ -358,8 +358,9 @@ if check_password():
             else:
                 return None  # Returner None, hvis geometrien ikke er en streng
     
-        if 'key' not in st.session_state:
+        if 'Klimaatlas_gdf' not in st.session_state:
             st.session_state['Klimaatlas_gdf'] = 'df_gdf = pd.read_csv("Klimaatlas_gdf.csv")'
+            st.session_state['Klimaatlas_gdf'] = st.session_state['Klimaatlas_gdf'][st.session_state['Klimaatlas_gdf']['percentil'] == 2]
             st.session_state['Klimaatlas_gdf']['SHAPE_geometry'] = st.session_state['Klimaatlas_gdf']['SHAPE_geometry'].apply(safe_wkt_loads)
         
         
@@ -427,18 +428,18 @@ if check_password():
             options=list(periode_mapping.keys())
         )
 
-        # Selectbox for at vælge percentil
-        selected_percentil = c5.selectbox(
-            "Vælg percentil:",
-            options=list(percentil_mapping.keys())
-        )
+        # # Selectbox for at vælge percentil
+        # selected_percentil = c5.selectbox(
+        #     "Vælg percentil:",
+        #     options=list(percentil_mapping.keys())
+        # )
 
         # Få de numeriske værdier for hver selectbox
         selected_season_value = season_mapping[selected_season]
         selected_value_type_value = value_type_mapping[selected_value_type]
         selected_scenarie_value = scenarie_mapping[selected_scenarie]
         selected_periode_value = periode_mapping[selected_periode]
-        selected_percentil_value = percentil_mapping[selected_percentil]
+        # selected_percentil_value = percentil_mapping[selected_percentil]
 
         
         # Vis valgte værdier og deres numeriske feltnavne
@@ -486,7 +487,7 @@ if check_password():
         filtered_gdf = st.session_state['Klimaatlas_gdf'].loc[
             (st.session_state['Klimaatlas_gdf']['aarstid'] == selected_season_value) &
             (st.session_state['Klimaatlas_gdf']['visningafvaerdier'] == selected_value_type_value) &
-            (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
+            # (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
             (st.session_state['Klimaatlas_gdf']['scenarie'] == selected_scenarie_value) &
             (st.session_state['Klimaatlas_gdf']['periode'] == selected_periode_value)
         ]
