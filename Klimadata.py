@@ -360,10 +360,48 @@ if check_password():
 
         df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
         df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
-        st.write(df_gdf.head())
         gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
-        st.write('Hejsa')
         st.write(gdf.head())
+
+        season_mapping = {
+            "Hele året": 1,
+            "Vinter (Dec.-Jan.-Feb.)": 2,
+            "Forår (Marts-April-Maj)": 3,
+            "Sommer (Juni-Juli-August)": 4,
+            "Efterår (Sept.-Okt.-Nov.)": 5
+        }
+
+        # Streamlit selectbox for at vælge årstid
+        selected_season = st.selectbox(
+            "Vælg årstid:",
+            options=list(season_mapping.keys())  # Viser mulighederne for brugeren
+        )
+        selected_value = season_mapping[selected_season]
+
+
+
+
+        # Opret et nyt folium-kort centreret over Danmark
+        m = folium.Map(location=[55.6761, 12.5683], zoom_start=10)
+
+        # Tilføj Choropleth lag for at farve kommunerne efter skybrud
+        folium.Choropleth(
+            geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
+            name="Skybrud",
+            data=gdf,
+            columns=["komnavn", "skybrud"],  # Kolonner for kommune og skybrud
+            key_on="feature.properties.komnavn",  # Matcher kommunernes navne i GeoJSON
+            fill_color="YlGnBu",  # Farveskala
+            fill_opacity=0.7,
+            line_opacity=0.2,
+            legend_name="Skybrud (mm)"
+        ).add_to(m)
+
+        # Tilføj kontrol for lag
+        folium.LayerControl().add_to(m)
+
+        # Gem kortet som en HTML-fil
+        m
 
 
