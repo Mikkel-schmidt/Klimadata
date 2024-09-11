@@ -389,8 +389,7 @@ if check_password():
         scenarie_mapping = {
             "Lavt CO2-niveau": 3,
             "Mellem CO2-niveau": 1,
-            "Højt CO2-niveau": 2,
-            
+            "Højt CO2-niveau": 2
         }
 
         # Opret en dictionary for perioder
