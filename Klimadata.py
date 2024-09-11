@@ -308,9 +308,9 @@ if check_password():
             folium.Marker([latitude, longitude], popup=adresse).add_to(m5)
 
         # Add a colorbar using branca
-        # colormap = cm.linear.YlOrRd_09.scale(0, 100)  # Change this to fit your data range
-        # colormap.caption = 'Example Color Scale'  # Caption for the colorbar
-        # colormap.add_to(m5)
+        colormap = cm.linear.YlOrRd_09.scale(10, 0)  # Change this to fit your data range
+        colormap.caption = 'Grundvandsdybde [m]'  # Caption for the colorbar
+        colormap.add_to(m5)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/hip_dtg_10m_100m?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
