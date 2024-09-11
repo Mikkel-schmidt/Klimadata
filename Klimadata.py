@@ -357,9 +357,9 @@ if check_password():
             else:
                 return None  # Returner None, hvis geometrien ikke er en streng
     
-
-        df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
-        df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
+        if 'key' not in st.session_state:
+            st.session_state['Klimaatlas_gdf'] = 'df_gdf = pd.read_csv("Klimaatlas_gdf.csv")'
+            st.session_state['Klimaatlas_gdf']['SHAPE_geometry'] = st.session_state['Klimaatlas_gdf']['SHAPE_geometry'].apply(safe_wkt_loads)
         
         
         c0, c1, c2, c3, c4, c5 = st.columns(6)
@@ -482,14 +482,14 @@ if check_password():
             format_func=lambda x: klimavariabler[x]  # Viser de letforståelige navne
         )
 
-        filtered_gdf = df_gdf.loc[
-            (df_gdf['aarstid'] == selected_season_value) &
-            (df_gdf['visningafvaerdier'] == selected_value_type_value) &
-            (df_gdf['percentil'] == selected_percentil_value) &
-            (df_gdf['scenarie'] == selected_scenarie_value) &
-            (df_gdf['periode'] == selected_periode_value)
+        filtered_gdf = st.session_state['Klimaatlas_gdf'].loc[
+            (st.session_state['Klimaatlas_gdf']['aarstid'] == selected_season_value) &
+            (st.session_state['Klimaatlas_gdf']['visningafvaerdier'] == selected_value_type_value) &
+            (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
+            (st.session_state['Klimaatlas_gdf']['scenarie'] == selected_scenarie_value) &
+            (st.session_state['Klimaatlas_gdf']['periode'] == selected_periode_value)
         ]
-        gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
+        gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
         #st.write(gdf.head())
 
