@@ -349,6 +349,7 @@ if check_password():
     with tab7:
         df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
         gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry')
+        st.write('Hejsa')
         st.write(gdf.head())
 
 
