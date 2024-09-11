@@ -11,9 +11,6 @@ from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
 
-if 'password' not in st.session_state:
-    st.session_state['password'] = None
-
 if check_password():
     st.success('Login success')
 
