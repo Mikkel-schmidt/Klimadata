@@ -147,8 +147,8 @@ if check_password():
         st_folium(m2, width=1200, height=700)
 
     with tab3:
-        if st.button("Reload Havvand Map"):
-            # Create a selectbox for layers (frontend-friendly names)
+
+         # Create a selectbox for layers (frontend-friendly names)
             selected_layer_name = 'Flow ekstremregn' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
 
             # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
@@ -163,6 +163,13 @@ if check_password():
             # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
             selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
 
+
+        if st.button("Genindlæs kort", key="reload_map3"):
+            reload_map = True
+        else:
+            reload_map = False
+
+        if reload_map:
             # Display selected options
             # st.write(f'Valgt lag: {selected_layer_name}')
             # st.write(f'Valgt stil: {selected_style_name}')
