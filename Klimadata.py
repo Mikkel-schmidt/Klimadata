@@ -440,11 +440,43 @@ if check_password():
 
         
         # Vis valgte værdier og deres numeriske feltnavne
-        c1.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
-        c2.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
-        c3.write(f"Du har valgt scenarie: {selected_scenarie} (Feltnavn: {selected_scenarie_value})")
-        c4.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
-        c5.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
+        # c1.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
+        # c2.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
+        # c3.write(f"Du har valgt scenarie: {selected_scenarie} (Feltnavn: {selected_scenarie_value})")
+        # c4.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
+        # c5.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
+
+        # Dictionary der mapper tekniske navne til mere letforståelige navne
+        klimavariabler = {
+            'doegn2aarsh': "2-årshændelse døgnnedbør",
+            'doegn5aarsh': "5-årshændelse døgnnedbør",
+            'doegn10aarsh': "10-årshændelse døgnnedbør",
+            'doegn20aarsh': "20-årshændelse døgnnedbør",
+            'doegn50aarsh': "50-årshændelse døgnnedbør",
+            'doegn100aarsh': "100-årshændelse døgnnedbør",
+            'doegn10mm': "Døgn med over 10 mm nedbør",
+            'doegn20mm': "Døgn med over 20 mm nedbør",
+            'gennemsnitsnedboer': "Gennemsnitsnedbør",
+            'maksimal5doegn': "Maksimal 5-døgnsnedbør",
+            'maksimal14doegn': "Maksimal 14-døgnsnedbør",
+            'maksimaldoegn': "Maksimal døgnnedbør",
+            'skybrud': "Skybrud",
+            'time2aarsh': "2-årshændelse timenedbør",
+            'time5aarsh': "5-årshændelse timenedbør",
+            'time10aarsh': "10-årshændelse timenedbør",
+            'time20aarsh': "20-årshændelse timenedbør",
+            'time50aarsh': "50-årshændelse timenedbør",
+            'time100aarsh': "100-årshændelse timenedbør",
+            'toerredage': "Antal tørre dage",
+            'toerreperiode': "Længste tørre periode"
+        }
+
+        # Opret en selectbox til valg af klimavariabel
+        valgt_variabel = st.selectbox(
+            "Vælg en klimavariabel:",
+            options=list(klimavariabler.keys()),  # Vis de tekniske navne som options
+            format_func=lambda x: klimavariabler[x]  # Viser de letforståelige navne
+        )
 
         filtered_gdf = df_gdf.loc[
             (df_gdf['aarstid'] == selected_season_value) &
@@ -459,25 +491,25 @@ if check_password():
 
 
         # Opret et nyt folium-kort centreret over Danmark
-        m = folium.Map(location=[55.6761, 12.5683], zoom_start=10)
+        m7 = folium.Map(location=[55.6761, 12.5683], zoom_start=10)
 
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
         folium.Choropleth(
             geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
-            name="Skybrud",
+            name=valgt_variabel,
             data=gdf,
-            columns=["komnavn", "skybrud"],  # Kolonner for kommune og skybrud
+            columns=["komnavn", valgt_variabel],  # Kolonner for kommune og skybrud
             key_on="feature.properties.komnavn",  # Matcher kommunernes navne i GeoJSON
             fill_color="YlGnBu",  # Farveskala
             fill_opacity=0.7,
             line_opacity=0.2,
             legend_name="Skybrud (mm)"
-        ).add_to(m)
+        ).add_to(m7)
 
         # Tilføj kontrol for lag
-        folium.LayerControl().add_to(m)
+        folium.LayerControl().add_to(m7)
 
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m5, width=1200, height=700)
+        st_folium(m7, width=1200, height=700)
 
 
