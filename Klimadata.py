@@ -360,8 +360,7 @@ if check_password():
 
         df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
         df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
-        gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
-        gdf.to_crs(epsg=4326)
+        
         
 
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
@@ -438,7 +437,7 @@ if check_password():
         selected_periode_value = periode_mapping[selected_periode]
         selected_percentil_value = percentil_mapping[selected_percentil]
 
-        c1, c2, c3, c4, c5 = st.col(5)
+        c1, c2, c3, c4, c5 = st.columns(5)
         # Vis valgte værdier og deres numeriske feltnavne
         c1.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
         c2.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
@@ -446,14 +445,16 @@ if check_password():
         c4.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
         c5.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
 
-        filtered_gdf = gdf.loc[
-            (gdf['aarstid'] == selected_season_value) &
-            (gdf['visningafvaerdier'] == selected_value_type_value) &
-            (gdf['percentil'] == selected_percentil_value) &
-            (gdf['scenarie'] == selected_scenarie_value) &
-            (gdf['periode'] == selected_periode_value)
+        filtered_gdf = df_gdf.loc[
+            (df_gdf['aarstid'] == selected_season_value) &
+            (df_gdf['visningafvaerdier'] == selected_value_type_value) &
+            (df_gdf['percentil'] == selected_percentil_value) &
+            (df_gdf['scenarie'] == selected_scenarie_value) &
+            (df_gdf['periode'] == selected_periode_value)
         ]
-        st.write(filtered_gdf.head())
+        gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
+        gdf.to_crs(epsg=4326)
+        st.write(gdf.head())
 
 
         # Opret et nyt folium-kort centreret over Danmark
