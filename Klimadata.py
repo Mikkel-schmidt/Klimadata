@@ -273,7 +273,7 @@ if check_password():
 
     with tab5:
 
-        grundvand_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv', sep=';')
+        grundvand_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/grundvand_model.csv', sep=';')
         # Create a selectbox for layers (frontend-friendly names)
         selected_layer_name = 'Gummistøvleindeks Havvand' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
 
