@@ -178,7 +178,7 @@ if check_password():
             # st.write(f'Valgt stil: {selected_style_value}')
 
             # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-            m3 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+            m3 = folium.Map(location=[latitude, longitude], zoom_start=17, crs='EPSG3857')
 
             # Tilføj en markør ved den fundne adresse, hvis tilgængelig
             if location:
