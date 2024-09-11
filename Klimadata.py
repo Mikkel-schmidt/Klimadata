@@ -164,7 +164,7 @@ if check_password():
         selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
 
 
-        if st.button("Genindlæs kort", key="reload_map3"):
+        if st.toggle("Indlæs kort", key="reload_map3"):
             reload_map = True
         else:
             reload_map = False
