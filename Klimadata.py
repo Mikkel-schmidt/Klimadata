@@ -364,6 +364,7 @@ if check_password():
         gdf.to_crs(epsg=4326)
         st.write(gdf.head())
 
+        # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
             "Hele året": 1,
             "Vinter (Dec.-Jan.-Feb.)": 2,
@@ -372,12 +373,77 @@ if check_password():
             "Efterår (Sept.-Okt.-Nov.)": 5
         }
 
-        # Streamlit selectbox for at vælge årstid
+        # Opret en dictionary for visning af værdier
+        value_type_mapping = {
+            "Absolut": 1,
+            "Ændringer": 2
+        }
+
+        # Opret en dictionary for scenarier
+        scenarie_mapping = {
+            "Mellem CO2-niveau": 1,
+            "Højt CO2-niveau": 2,
+            "Lavt CO2-niveau": 3
+        }
+
+        # Opret en dictionary for perioder
+        periode_mapping = {
+            "Reference (1981-2010)": 1,
+            "Start århundrede (2011-2040)": 2,
+            "Midt århundrede (2041-2070)": 3,
+            "Slut århundrede (2071-2100)": 4
+        }
+
+        # Opret en dictionary for percentil
+        percentil_mapping = {
+            "10%": 1,
+            "50%": 2,
+            "90%": 3
+        }
+
+        # Selectbox for at vælge årstid
         selected_season = st.selectbox(
             "Vælg årstid:",
-            options=list(season_mapping.keys())  # Viser mulighederne for brugeren
+            options=list(season_mapping.keys())
         )
-        selected_value = season_mapping[selected_season]
+
+        # Selectbox for at vælge visningstype
+        selected_value_type = st.selectbox(
+            "Vælg visningstype:",
+            options=list(value_type_mapping.keys())
+        )
+
+        # Selectbox for at vælge scenarie
+        selected_scenarie = st.selectbox(
+            "Vælg scenarie:",
+            options=list(scenarie_mapping.keys())
+        )
+
+        # Selectbox for at vælge periode
+        selected_periode = st.selectbox(
+            "Vælg periode:",
+            options=list(periode_mapping.keys())
+        )
+
+        # Selectbox for at vælge percentil
+        selected_percentil = st.selectbox(
+            "Vælg percentil:",
+            options=list(percentil_mapping.keys())
+        )
+
+        # Få de numeriske værdier for hver selectbox
+        selected_season_value = season_mapping[selected_season]
+        selected_value_type_value = value_type_mapping[selected_value_type]
+        selected_scenarie_value = scenarie_mapping[selected_scenarie]
+        selected_periode_value = periode_mapping[selected_periode]
+        selected_percentil_value = percentil_mapping[selected_percentil]
+
+        # Vis valgte værdier og deres numeriske feltnavne
+        st.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
+        st.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
+        st.write(f"Du har valgt scenarie: {selected_scenarie} (Feltnavn: {selected_scenarie_value})")
+        st.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
+        st.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})
 
 
 
