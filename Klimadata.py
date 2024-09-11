@@ -5,8 +5,9 @@ from shapely import wkt
 import folium
 from geopy.geocoders import Nominatim
 from streamlit_folium import st_folium
-from streamlit_functions import check_password
 import branca.colormap as cm
+
+from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
 
