@@ -359,9 +359,9 @@ if check_password():
     
 
         df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
-        df_gdf['geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
+        df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
         st.write(df_gdf.head())
-        gdf = gpd.GeoDataFrame(df_gdf, geometry='geometry', crs="EPSG:25832")
+        gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
         st.write('Hejsa')
         st.write(gdf.head())
