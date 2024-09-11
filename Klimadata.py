@@ -362,7 +362,8 @@ if check_password():
         df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
         
         
-        c1, c2, c3, c4, c5 = st.columns(5)
+        c0, c1, c2, c3, c4, c5 = st.columns(6)
+        c0.header('Filtre:')
 
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
@@ -471,8 +472,11 @@ if check_password():
             'toerreperiode': "Længste tørre periode"
         }
 
+        c00, c01 = st.columns([1,5])
+        c00.header('Klimavariabel:')
+
         # Opret en selectbox til valg af klimavariabel
-        valgt_variabel = st.selectbox(
+        valgt_variabel = c01.selectbox(
             "Vælg en klimavariabel:",
             options=list(klimavariabler.keys()),  # Vis de tekniske navne som options
             format_func=lambda x: klimavariabler[x]  # Viser de letforståelige navne
