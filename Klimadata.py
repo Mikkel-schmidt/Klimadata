@@ -384,9 +384,10 @@ if check_password():
 
         # Opret en dictionary for scenarier
         scenarie_mapping = {
+            "Lavt CO2-niveau": 3,
             "Mellem CO2-niveau": 1,
             "Højt CO2-niveau": 2,
-            "Lavt CO2-niveau": 3
+            
         }
 
         # Opret en dictionary for perioder
@@ -419,13 +420,13 @@ if check_password():
         # Selectbox for at vælge scenarie
         selected_scenarie = c1.selectbox(
             "Vælg scenarie:",
-            options=list(scenarie_mapping.keys())
+            options=list(scenarie_mapping.keys(), index=2)
         )
 
         # Selectbox for at vælge periode
         selected_periode = c4.selectbox(
             "Vælg periode:",
-            options=list(periode_mapping.keys())
+            options=list(periode_mapping.keys(), index=3)
         )
 
         # # Selectbox for at vælge percentil
@@ -484,15 +485,16 @@ if check_password():
             format_func=lambda x: klimavariabler[x]  # Viser de letforståelige navne
         )
 
-        filtered_gdf = st.session_state['Klimaatlas_gdf'].loc[
-            (st.session_state['Klimaatlas_gdf']['aarstid'] == selected_season_value) &
-            (st.session_state['Klimaatlas_gdf']['visningafvaerdier'] == selected_value_type_value) &
-            # (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
-            (st.session_state['Klimaatlas_gdf']['scenarie'] == selected_scenarie_value) &
-            (st.session_state['Klimaatlas_gdf']['periode'] == selected_periode_value)
-        ]
-        gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
-        gdf.to_crs(epsg=4326)
+        with st.spinner('Anvender filtre...'):
+            filtered_gdf = st.session_state['Klimaatlas_gdf'].loc[
+                (st.session_state['Klimaatlas_gdf']['aarstid'] == selected_season_value) &
+                (st.session_state['Klimaatlas_gdf']['visningafvaerdier'] == selected_value_type_value) &
+                # (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
+                (st.session_state['Klimaatlas_gdf']['scenarie'] == selected_scenarie_value) &
+                (st.session_state['Klimaatlas_gdf']['periode'] == selected_periode_value)
+            ]
+            gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
+            gdf.to_crs(epsg=4326)
         #st.write(gdf.head())
 
 
