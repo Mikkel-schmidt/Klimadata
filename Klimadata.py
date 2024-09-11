@@ -359,12 +359,12 @@ if check_password():
                 return None  # Returner None, hvis geometrien ikke er en streng
     
         if 'Klimaatlas_gdf' not in st.session_state:
-            df_gdf = 'df_gdf = pd.read_csv("Klimaatlas_gdf.csv")'
+            df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
             df_gdf = df_gdf.loc[df_gdf['percentil'] == 2]
             st.session_state['Klimaatlas_gdf']['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
         
         
-        c0, c1, c2, c3, c4, c5 = st.columns(6)
+        c0, c1, c2, c3, c4 = st.columns(5)
         c0.subheader('Filtre:')
 
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
@@ -476,7 +476,7 @@ if check_password():
             'toerreperiode': "Længste tørre periode"
         }
 
-        c00, c01 = st.columns([1,5])
+        c00, c01 = st.columns([1,4])
         c00.subheader('Klimavariabel:')
 
         # Opret en selectbox til valg af klimavariabel
