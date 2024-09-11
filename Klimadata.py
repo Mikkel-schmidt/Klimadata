@@ -363,7 +363,7 @@ if check_password():
         
         
         c1, c2, c3, c4, c5 = st.columns(5)
-        
+
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
             "Hele året": 1,
@@ -463,9 +463,9 @@ if check_password():
 
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
         folium.Choropleth(
-            geo_data=filtered_gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
+            geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
             name="Skybrud",
-            data=filtered_gdf,
+            data=gdf,
             columns=["komnavn", "skybrud"],  # Kolonner for kommune og skybrud
             key_on="feature.properties.komnavn",  # Matcher kommunernes navne i GeoJSON
             fill_color="YlGnBu",  # Farveskala
