@@ -1,10 +1,10 @@
 layer_value;layer_name;style_value;style_name
-middelfejl_kal;Middelfejl Kalibrering (2000-2010);default;Standard (Default)
-middelfejl_val1;Middelfejl Validering (1990-1999);default;Standard (Default)
-middelfejl_val2;Middelfejl Validering (2011-2019);default;Standard (Default)
 10m_phreatic_summer;10m Freatisk (Sommer);default;Standard (Default)
 10m_phreatic_summer_deep;10m Freatisk Sommer (Dyb);default;Standard (Default)
 10m_phreatic_summer_shallow;10m Freatisk Sommer (Lav);default;Standard (Default)
 10m_phreatic_winter;10m Freatisk (Vinter);default;Standard (Default)
 10m_phreatic_winter_deep;10m Freatisk Vinter (Dyb);default;Standard (Default)
 10m_phreatic_winter_shallow;10m Freatisk Vinter (Lav);default;Standard (Default)
+middelfejl_kal;Middelfejl Kalibrering (2000-2010);default;Standard (Default)
+middelfejl_val1;Middelfejl Validering (1990-1999);default;Standard (Default)
+middelfejl_val2;Middelfejl Validering (2011-2019);default;Standard (Default)
