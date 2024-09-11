@@ -217,7 +217,10 @@ if check_password():
         selected_style_name = st.selectbox('Vælg et gummistøvleindeks', filtered_styles['style_name'], index=10, key="style_select_gummi")
 
         # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
-        selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
+        selected_style_value = 'Default'
+
+        # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
+        selected_layer_value1 = layers_styles[layers_styles['style_name'] == selected_style_name]['layer_value'].iloc[0]
 
         # Display selected options
         # st.write(f'Valgt lag: {selected_layer_name}')
@@ -243,7 +246,7 @@ if check_password():
         folium.raster_layers.WmsTileLayer(
             url=wms_url,
             name=f"{selected_style_name}",  # Navn der vises i lagvælgeren (frontend-friendly)
-            layers=selected_layer_value,  # Navn på WMS-laget (backend value)
+            layers=selected_layer_value1,  # Navn på WMS-laget (backend value)
             styles=selected_style_value,  # Style for WMS-laget (backend value)
             fmt='image/png',  # Billedformat
             transparent=True,  # Transparent baggrund
