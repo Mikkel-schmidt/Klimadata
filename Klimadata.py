@@ -316,7 +316,7 @@ if check_password():
         folium.raster_layers.WmsTileLayer(
             url=wms_url,
             name=f"{selected_style_name}",  # Navn der vises i lagvælgeren (frontend-friendly)
-            layers=selected_layer_value1,  # Navn på WMS-laget (backend value)
+            layers=selected_layer_value,  # Navn på WMS-laget (backend value)
             styles=selected_style_value,  # Style for WMS-laget (backend value)
             fmt='image/png',  # Billedformat
             transparent=True,  # Transparent baggrund
