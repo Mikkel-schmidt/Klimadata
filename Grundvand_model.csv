@@ -1,8 +1,8 @@
 layer_value;layer_name;style_value;style_name
-10m_phreatic_summer;Grundvandsdybde (Sommer);default;Standard (Default)
+10m_phreatic_summer;Grundvandsdybde Sommer (Gennemsnit);default;Standard (Default)
 10m_phreatic_summer_deep;Grundvandsdybde Sommer (Dybtliggende);default;Standard (Default)
 10m_phreatic_summer_shallow;Grundvandsdybde Sommer (Overfladenær);default;Standard (Default)
-10m_phreatic_winter;Grundvandsdybde (Vinter);default;Standard (Default)
+10m_phreatic_winter;Grundvandsdybde Vinter (Gennemsnit);default;Standard (Default)
 10m_phreatic_winter_deep;Grundvandsdybde Vinter (Dybtliggende);default;Standard (Default)
 10m_phreatic_winter_shallow;Grundvandsdybde Vinter (Overfladenær);default;Standard (Default)
 middelfejl_kal;Middelfejl Kalibrering (2000-2010);default;Standard (Default)
