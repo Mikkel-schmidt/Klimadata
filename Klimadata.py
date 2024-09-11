@@ -311,8 +311,8 @@ if check_password():
 
         # Tilføj et baselayer
         folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m5)
-        folium.TileLayer('Stamen Terrain', name="Stamen Terrain").add_to(m5)  # Terrain map
-        folium.TileLayer('Stamen Toner', name="Stamen Toner").add_to(m5)  # High contrast map for clarity
+        #folium.TileLayer('Stamen Terrain', name="Stamen Terrain").add_to(m5)  # Terrain map
+        #folium.TileLayer('Stamen Toner', name="Stamen Toner").add_to(m5)  # High contrast map for clarity
 
 
         # Tilføj WMS-lag med backend-lag og stil værdier
