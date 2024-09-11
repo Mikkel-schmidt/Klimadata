@@ -401,31 +401,31 @@ if check_password():
         }
 
         # Selectbox for at vælge årstid
-        selected_season = st.selectbox(
+        selected_season = c2.selectbox(
             "Vælg årstid:",
             options=list(season_mapping.keys())
         )
 
         # Selectbox for at vælge visningstype
-        selected_value_type = st.selectbox(
+        selected_value_type = c3.selectbox(
             "Vælg visningstype:",
             options=list(value_type_mapping.keys())
         )
 
         # Selectbox for at vælge scenarie
-        selected_scenarie = st.selectbox(
+        selected_scenarie = c1.selectbox(
             "Vælg scenarie:",
             options=list(scenarie_mapping.keys())
         )
 
         # Selectbox for at vælge periode
-        selected_periode = st.selectbox(
+        selected_periode = c4.selectbox(
             "Vælg periode:",
             options=list(periode_mapping.keys())
         )
 
         # Selectbox for at vælge percentil
-        selected_percentil = st.selectbox(
+        selected_percentil = c5.selectbox(
             "Vælg percentil:",
             options=list(percentil_mapping.keys())
         )
