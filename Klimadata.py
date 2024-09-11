@@ -363,7 +363,7 @@ if check_password():
         
         
         c0, c1, c2, c3, c4, c5 = st.columns(6)
-        c0.header('Filtre:')
+        c0.subheader('Filtre:')
 
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
@@ -473,7 +473,7 @@ if check_password():
         }
 
         c00, c01 = st.columns([1,5])
-        c00.header('Klimavariabel:')
+        c00.subheader('Klimavariabel:')
 
         # Opret en selectbox til valg af klimavariabel
         valgt_variabel = c01.selectbox(
