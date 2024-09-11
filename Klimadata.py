@@ -27,7 +27,7 @@ if check_password():
         st.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
-    tab1, tab2, tab3, tab4 = st.tabs(['Klimadata', 'Grundvand', 'Vandløb', 'Klimaatlas'])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7= st.tabs(['Havvand', 'Ekstremregn og skybrud', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
 
     ############################# TAB 1 ###############################################################################
 
