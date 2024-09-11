@@ -422,13 +422,15 @@ if check_password():
         # Selectbox for at vælge scenarie
         selected_scenarie = c1.selectbox(
             "Vælg scenarie:",
-            options=list(scenarie_mapping.keys(), index=2)
+            options=list(scenarie_mapping.keys()), 
+            index=2
         )
 
         # Selectbox for at vælge periode
         selected_periode = c4.selectbox(
             "Vælg periode:",
-            options=list(periode_mapping.keys(), index=3)
+            options=list(periode_mapping.keys()), 
+            index=3
         )
 
         # # Selectbox for at vælge percentil
