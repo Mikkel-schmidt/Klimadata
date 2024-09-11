@@ -28,7 +28,7 @@ if check_password():
         st.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7= st.tabs(['Havvand', 'Skybrud og ekstremregn', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Havvand', 'Skybrud og ekstremregn', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
 
     # Hent lag og stilarter fra filen
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv', sep=';')
@@ -342,5 +342,13 @@ if check_password():
         
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m5, width=1200, height=700)
+
+    with tab6:
+        st.write('Mangler data')
+
+    with tab7:
+        df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
+        gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry')
+        st.write(gdf.head())
 
 

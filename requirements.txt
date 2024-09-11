@@ -6,3 +6,6 @@ geopy
 Nominatim
 streamlit_folium
 branca
+arcgis
+geopandas
+shapely
