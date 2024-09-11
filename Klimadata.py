@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
+from shapely import wkt
 import folium
 from geopy.geocoders import Nominatim
 from streamlit_folium import st_folium
@@ -349,8 +350,9 @@ if check_password():
 
     with tab7:
         df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
+        df_gdf['geometry'] = df_gdf['SHAPE_geometry'].apply(wkt.loads)
         st.write(df_gdf.head())
-        gdf = gpd.GeoDataFrame(df_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
+        gdf = gpd.GeoDataFrame(df_gdf, geometry='geometry', crs="EPSG:25832")
         gdf.to_crs(epsg=4326)
         st.write('Hejsa')
         st.write(gdf.head())

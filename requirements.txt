@@ -7,3 +7,4 @@ Nominatim
 streamlit_folium
 branca
 geopandas
+shapely
