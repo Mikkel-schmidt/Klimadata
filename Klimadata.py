@@ -498,7 +498,7 @@ if check_password():
             ]
             gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
             gdf.to_crs(epsg=4326)
-        #st.write(gdf.head())
+        #st.write(gdf.head()) 
 
 
         # Opret et nyt folium-kort centreret over Danmark
