@@ -11,7 +11,7 @@ import branca.colormap as cm
 st.set_page_config(layout="wide", page_title="Forside")
 
 if check_password():
-    st.success('Login success')
+    st.toast('Login success', icon='🎉')
 
     # Opret en geokodningsfunktion ved hjælp af Nominatim
     geolocator = Nominatim(user_agent="Klimadata")
@@ -24,7 +24,7 @@ if check_password():
 
     # Tjek om geokodningen lykkedes
     if location:
-        st.success('Adresse fundet')
+        st.toast('Adresse fundet', icon='🎉')
         latitude, longitude = location.latitude, location.longitude
     else:
         st.write("Kunne ikke finde den angivne adresse.")
