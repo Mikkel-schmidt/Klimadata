@@ -438,12 +438,13 @@ if check_password():
         selected_periode_value = periode_mapping[selected_periode]
         selected_percentil_value = percentil_mapping[selected_percentil]
 
+        c1, c2, c3, c4, c5 = st.col(5)
         # Vis valgte værdier og deres numeriske feltnavne
-        st.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
-        st.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
-        st.write(f"Du har valgt scenarie: {selected_scenarie} (Feltnavn: {selected_scenarie_value})")
-        st.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
-        st.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
+        c1.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
+        c2.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
+        c3.write(f"Du har valgt scenarie: {selected_scenarie} (Feltnavn: {selected_scenarie_value})")
+        c4.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
+        c5.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
 
         filtered_gdf = gdf.loc[
             (gdf['aarstid'] == selected_season_value) &
