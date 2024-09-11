@@ -362,7 +362,8 @@ if check_password():
         df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
         
         
-
+        c1, c2, c3, c4, c5 = st.columns(5)
+        
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
             "Hele året": 1,
@@ -437,7 +438,7 @@ if check_password():
         selected_periode_value = periode_mapping[selected_periode]
         selected_percentil_value = percentil_mapping[selected_percentil]
 
-        c1, c2, c3, c4, c5 = st.columns(5)
+        
         # Vis valgte værdier og deres numeriske feltnavne
         c1.write(f"Du har valgt årstiden: {selected_season} (Feltnavn: {selected_season_value})")
         c2.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
