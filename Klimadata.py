@@ -59,17 +59,17 @@ if check_password():
         # st.write(f'Valgt stil: {selected_style_value}')
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-        m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+        m1 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # Tilføj en markør ved den fundne adresse, hvis tilgængelig
         if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m)
+            folium.Marker([latitude, longitude], popup=adresse).add_to(m1)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
         # Tilføj et baselayer
-        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
+        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m1)
 
         # Tilføj WMS-lag med backend-lag og stil værdier
         folium.raster_layers.WmsTileLayer(
@@ -83,13 +83,13 @@ if check_password():
             overlay=True,  # Sæt overlay til True
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
-        ).add_to(m)
+        ).add_to(m1)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
-        folium.LayerControl(position='topright', collapsed=False).add_to(m)
+        folium.LayerControl(position='topright', collapsed=False).add_to(m1)
 
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m, width=1200, height=700)
+        st_folium(m1, width=1200, height=700)
 
     with tab2:
         # Create a selectbox for layers (frontend-friendly names)
@@ -115,17 +115,17 @@ if check_password():
         # st.write(f'Valgt stil: {selected_style_value}')
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-        m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+        m2 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # Tilføj en markør ved den fundne adresse, hvis tilgængelig
         if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m)
+            folium.Marker([latitude, longitude], popup=adresse).add_to(m2)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
         # Tilføj et baselayer
-        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
+        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m2)
 
         # Tilføj WMS-lag med backend-lag og stil værdier
         folium.raster_layers.WmsTileLayer(
@@ -139,14 +139,14 @@ if check_password():
             overlay=True,  # Sæt overlay til True
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
-        ).add_to(m)
+        ).add_to(m2)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
-        folium.LayerControl(position='topright', collapsed=False).add_to(m)
+        folium.LayerControl(position='topright', collapsed=False).add_to(m2)
 
         
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m, width=1200, height=700)
+        st_folium(m2, width=1200, height=700)
 
     with tab3:
         # Create a selectbox for layers (frontend-friendly names)
@@ -172,17 +172,17 @@ if check_password():
         # st.write(f'Valgt stil: {selected_style_value}')
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-        m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+        m3 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # Tilføj en markør ved den fundne adresse, hvis tilgængelig
         if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m)
+            folium.Marker([latitude, longitude], popup=adresse).add_to(m3)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
         # Tilføj et baselayer
-        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
+        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m3)
 
         # Tilføj WMS-lag med backend-lag og stil værdier
         folium.raster_layers.WmsTileLayer(
@@ -196,14 +196,14 @@ if check_password():
             overlay=True,  # Sæt overlay til True
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
-        ).add_to(m)
+        ).add_to(m3)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
-        folium.LayerControl(position='topright', collapsed=False).add_to(m)
+        folium.LayerControl(position='topright', collapsed=False).add_to(m3)
 
         
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m, width=1200, height=700)
+        st_folium(m3, width=1200, height=700)
 
     with tab4:
         # Create a selectbox for layers (frontend-friendly names)
@@ -229,17 +229,17 @@ if check_password():
         # st.write(f'Valgt stil: {selected_style_value}')
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-        m = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+        m4 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # Tilføj en markør ved den fundne adresse, hvis tilgængelig
         if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m)
+            folium.Marker([latitude, longitude], popup=adresse).add_to(m4)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
         # Tilføj et baselayer
-        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m)
+        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m4)
 
         # Tilføj WMS-lag med backend-lag og stil værdier
         folium.raster_layers.WmsTileLayer(
@@ -253,14 +253,14 @@ if check_password():
             overlay=True,  # Sæt overlay til True
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
-        ).add_to(m)
+        ).add_to(m4)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
-        folium.LayerControl(position='topright', collapsed=False).add_to(m)
+        folium.LayerControl(position='topright', collapsed=False).add_to(m4)
 
         
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m, width=1200, height=700)
+        st_folium(m4, width=1200, height=700)
 
 
 
