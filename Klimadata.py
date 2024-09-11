@@ -308,7 +308,7 @@ if check_password():
             folium.Marker([latitude, longitude], popup=adresse).add_to(m5)
 
         # Add a colorbar using branca
-        colormap = cm.linear.YlOrRd_09.scale(10, 0)  # Change this to fit your data range
+        colormap = cm.linear.RdYlBu_10.scale(10, 0)  # Change this to fit your data range
         colormap.caption = 'Grundvandsdybde [m]'  # Caption for the colorbar
         colormap.add_to(m5)
 
