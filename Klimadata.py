@@ -281,7 +281,7 @@ if check_password():
         selected_layer_value = layers_styles[layers_styles['layer_name'] == selected_layer_name]['layer_value'].iloc[0]
 
         # Filter stilarterne baseret på valgte lag
-        filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name]
+        filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name] 
 
         # Create a selectbox for styles (frontend-friendly names)
         selected_style_name = st.selectbox('Vælg et gummistøvleindeks', filtered_styles['style_name'], index=10, key="style_select_gummi")
