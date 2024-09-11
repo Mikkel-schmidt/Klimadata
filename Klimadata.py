@@ -443,7 +443,7 @@ if check_password():
         st.write(f"Du har valgt visningstype: {selected_value_type} (Feltnavn: {selected_value_type_value})")
         st.write(f"Du har valgt scenarie: {selected_scenarie} (Feltnavn: {selected_scenarie_value})")
         st.write(f"Du har valgt periode: {selected_periode} (Feltnavn: {selected_periode_value})")
-        st.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})
+        st.write(f"Du har valgt percentil: {selected_percentil} (Feltnavn: {selected_percentil_value})")
 
 
 
@@ -467,7 +467,7 @@ if check_password():
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m)
 
-        # Gem kortet som en HTML-fil
-        m
+        # Vis kortet i Streamlit og opdater det dynamisk
+        st_folium(m5, width=1200, height=700)
 
 
