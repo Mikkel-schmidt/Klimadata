@@ -361,7 +361,8 @@ if check_password():
         if 'Klimaatlas_gdf' not in st.session_state:
             df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
             df_gdf = df_gdf.loc[df_gdf['percentil'] == 2]
-            st.session_state['Klimaatlas_gdf']['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
+            df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
+            st.session_state['Klimaatlas_gdf'] = df_gdf
         
         
         c0, c1, c2, c3, c4 = st.columns(5)
