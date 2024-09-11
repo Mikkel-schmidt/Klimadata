@@ -149,19 +149,19 @@ if check_password():
     with tab3:
 
          # Create a selectbox for layers (frontend-friendly names)
-            selected_layer_name = 'Flow ekstremregn' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
+        selected_layer_name = 'Flow ekstremregn' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
 
-            # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
-            selected_layer_value = layers_styles[layers_styles['layer_name'] == selected_layer_name]['layer_value'].iloc[0]
+        # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
+        selected_layer_value = layers_styles[layers_styles['layer_name'] == selected_layer_name]['layer_value'].iloc[0]
 
-            # Filter stilarterne baseret på valgte lag
-            filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name]
+        # Filter stilarterne baseret på valgte lag
+        filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name]
 
-            # Create a selectbox for styles (frontend-friendly names)
-            selected_style_name = 'Flyderetning af vand'#st.selectbox('Vælg en ekstremregnsmængde', filtered_styles['style_name'], index=0, key="style_select_rain")
+        # Create a selectbox for styles (frontend-friendly names)
+        selected_style_name = 'Flyderetning af vand'#st.selectbox('Vælg en ekstremregnsmængde', filtered_styles['style_name'], index=0, key="style_select_rain")
 
-            # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
-            selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
+        # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
+        selected_style_value = filtered_styles[filtered_styles['style_name'] == selected_style_name]['style_value'].iloc[0]
 
 
         if st.button("Genindlæs kort", key="reload_map3"):
