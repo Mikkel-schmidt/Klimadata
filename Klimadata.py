@@ -87,5 +87,6 @@ if check_password():
     # Tilføj kontrolpanel til at vælge mellem lagene
     folium.LayerControl(position='topright', collapsed=False).add_to(m)
 
-    # Vis kortet i Streamlit og opdater det dynamisk
-    tab1.write(st_folium(m, width=1200, height=700))
+    with tab1:
+        # Vis kortet i Streamlit og opdater det dynamisk
+        st_folium(m, width=1200, height=700)
