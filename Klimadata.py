@@ -311,6 +311,9 @@ if check_password():
 
         # Tilføj et baselayer
         folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m5)
+        folium.TileLayer('Stamen Terrain', name="Stamen Terrain").add_to(m5)  # Terrain map
+        folium.TileLayer('Stamen Toner', name="Stamen Toner").add_to(m5)  # High contrast map for clarity
+
 
         # Tilføj WMS-lag med backend-lag og stil værdier
         folium.raster_layers.WmsTileLayer(
@@ -324,6 +327,7 @@ if check_password():
             overlay=True,  # Sæt overlay til True
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
+            opacity=0.5  # Adjust opacity (if supported)
         ).add_to(m5)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
