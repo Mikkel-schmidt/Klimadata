@@ -324,7 +324,7 @@ if check_password():
         # Tilføj WMS-lag med backend-lag og stil værdier
         folium.raster_layers.WmsTileLayer(
             url=wms_url,
-            name=f"{selected_style_name}",  # Navn der vises i lagvælgeren (frontend-friendly)
+            name=f"{selected_layer_name}",  # Navn der vises i lagvælgeren (frontend-friendly)
             layers=selected_layer_value,  # Navn på WMS-laget (backend value)
             styles=selected_style_value,  # Style for WMS-laget (backend value)
             fmt='image/png',  # Billedformat
