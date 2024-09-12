@@ -466,8 +466,9 @@ if check_password():
                 
                 # Vis label og billede
                 if label:
-                    col2.write(f"Label: {label}")
-                col2.image(image_url)
+                    col11, col22 = col2.columns([1, 3])
+                    col11.image(image_url)
+                    col22.write(f"Vanddybde: {label}", image_url)
 
     with tab7:
 
