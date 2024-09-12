@@ -12,6 +12,23 @@ from streamlit_functions import check_password
 
 st.set_page_config(layout="wide", page_title="Forside")
 
+# Tilføj HTML/CSS til legenden i nederste højre hjørne ved hjælp af st.components.v1.html
+def legendhtml(legend_url):
+    legend_html = f'''
+    <div style="
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 9999;
+    background-color: white;
+    border:0px solid grey;
+    padding: 0px;
+    ">
+    <img src="{legend_url}" alt="Legend" style="width: 100%;">
+    </div>
+    '''
+    return legend_html
+
 if check_password():
     st.success('Login success')
 
@@ -92,7 +109,7 @@ if check_password():
         folium.LayerControl(position='topright', collapsed=False).add_to(m1)
 
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m1, width=1200, height=700)
+        st_folium(m1, width='100%', height=700)
 
     with tab2: ############# EKSTREMREGN ###################
         # Create a selectbox for layers (frontend-friendly names)
@@ -164,21 +181,8 @@ if check_password():
 
             # URL for signaturforklaringen (legend)
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
-
-            # Tilføj HTML/CSS til legenden i nederste højre hjørne ved hjælp af st.components.v1.html
-            legend_html = f'''
-            <div style="
-            position: fixed;
-            bottom: 0px;
-            left: 0px;
-            z-index: 9999;
-            background-color: white;
-            border:0px solid grey;
-            padding: 0px;
-            ">
-            <img src="{legend_url}" alt="Legend" style="width: 100%;">
-            </div>
-            '''
+            legend_html= legendhtml(legend_url)
+            
 
 
 
@@ -251,12 +255,19 @@ if check_password():
                 show=True,
             ).add_to(m3)
 
+            legend_url = 'https://api.dataforsyningen.dk/dhm?token=' + st.secrets['token'] + '&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=dhm_flow_ekstremregn&format=image/png&STYLE=default'
+            legend_html = legendhtml(legend_url)
+
             # Tilføj kontrolpanel til at vælge mellem lagene
             folium.LayerControl(position='topright', collapsed=False).add_to(m3)
 
-            
-            # Vis kortet i Streamlit og opdater det dynamisk
-            st_folium(m3, width=1200, height=700)
+            col1, col2 = st.columns([3,1])
+            with col1:
+                # Vis kortet i Streamlit og opdater det dynamisk
+                st_folium(m3, width='100%', height=700)
+            with col2:
+                # Tilføj signaturforklaringen til kortet som en HTML-element
+                st.components.v1.html(legend_html, height=250)
 
     with tab4: ############# GUMMISTØVLE ###################
         # Create a selectbox for layers (frontend-friendly names)
