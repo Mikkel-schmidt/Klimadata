@@ -442,7 +442,7 @@ if check_password():
         col1, col2 = st.columns([3,1])
         with col1: 
             # Vis kortet i Streamlit og opdater det dynamisk
-            st_folium(m4, width='100%', height=700)
+            st_folium(m6, width='100%', height=700)
         #with col2:
             # Tilføj signaturforklaringen til kortet som en HTML-element
             #st.components.v1.html(legend_html, height=250)
