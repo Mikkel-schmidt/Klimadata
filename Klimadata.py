@@ -153,6 +153,7 @@ if check_password():
                 url='https://geoserver.plandata.dk/geoserver/ows',
                 name='Kloakoplande',
                 layers='pdk:theme_pdk_kloakopland_vedtaget_v',
+                styles='kloakopland_vedtaget',  # Leave empty to test
                 fmt='image/png',
                 transparent=True,
                 version='1.1.1',
