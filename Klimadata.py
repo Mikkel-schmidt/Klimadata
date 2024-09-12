@@ -165,20 +165,20 @@ if check_password():
             # URL for signaturforklaringen (legend)
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
 
-            # HTML for signaturforklaringen med positionering i nederste højre hjørne
-            legend_html = f'''
-                <div style="
-                position: fixed;
-                bottom: 50px;
-                right: 10px;
-                z-index: 9999;
-                background-color: white;
-                border:2px solid grey;
-                padding: 10px;
-                ">
-                <img src="{legend_url}" alt="Legend" style="width: 200px;">
-                </div>
-                '''
+            # Tilføj HTML/CSS til legenden i nederste højre hjørne ved hjælp af st.components.v1.html
+        legend_html = f'''
+            <div style="
+            position: fixed;
+            bottom: 50px;
+            right: 10px;
+            z-index: 9999;
+            background-color: white;
+            border:2px solid grey;
+            padding: 10px;
+            ">
+            <img src="{legend_url}" alt="Legend" style="width: 200px;">
+            </div>
+            '''
 
             # Tilføj signaturforklaringen til kortet som en HTML-element
             st.components.v1.html(legend_html, height=250)
