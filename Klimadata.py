@@ -458,7 +458,7 @@ if check_password():
 
         
 
-        for layer in legend_data['layers'][2]:
+        for layer in legend_data['layers'][2:]:
             for legend_item in layer['legend']:
                 label = legend_item['label']
                 # URL til hvert symbolbillede
