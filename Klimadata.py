@@ -357,24 +357,12 @@ if check_password():
         # Find de tilsvarende lag-værdier (backend values) baseret på valgte lag-navn
         #selected_layer_value1 = layers_styles[layers_styles['style_name'] == selected_style_name]['layer_value'].iloc[0]
 
-        # Display selected options
-        # st.write(f'Valgt lag: {selected_layer_name}')
-        # st.write(f'Valgt stil: {selected_style_name}')
-
-        # st.write(f'Valgt lag: {selected_layer_value}')
-        # st.write(f'Valgt stil: {selected_style_value}')
-
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
         m5 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # Tilføj en markør ved den fundne adresse, hvis tilgængelig
         if location:
             folium.Marker([latitude, longitude], popup=adresse).add_to(m5)
-
-        # Add a colorbar using branca
-        colormap = cm.linear.RdYlBu_10.scale(10, 0)  # Change this to fit your data range
-        colormap.caption = 'Grundvandsdybde [m]'  # Caption for the colorbar
-        colormap.add_to(m5)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/hip_dtg_10m_100m?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
