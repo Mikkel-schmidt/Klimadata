@@ -162,6 +162,16 @@ if check_password():
                 opacity=0.5
             ).add_to(m2)
 
+            # URL for signaturforklaringen (legend)
+            legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
+
+            # Opret en iframe for at vise signaturforklaringen
+            iframe = folium.IFrame('<img src="{}" style="width:200px;">'.format(legend_url), width=220, height=100)
+            popup = folium.Popup(iframe, max_width=2650)
+
+            # Tilføj signaturforklaringen som en marker eller i sidepanelet
+            folium.Marker([56, 12], popup=popup).add_to(m2)
+
 
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m2)
