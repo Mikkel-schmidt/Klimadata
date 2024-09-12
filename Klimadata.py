@@ -151,9 +151,8 @@ if check_password():
             # Tilføj WMS-lag dynamisk baseret på listen over lag
             folium.raster_layers.WmsTileLayer(
                 url='https://geoserver.plandata.dk/geoserver/ows',
-                name='Test Layer',
+                name='Kloakoplande',
                 layers='pdk:theme_pdk_kloakopland_vedtaget_v',
-                styles='',  # Leave empty to test
                 fmt='image/png',
                 transparent=True,
                 version='1.1.1',
