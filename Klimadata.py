@@ -464,7 +464,7 @@ if check_password():
             for legend_item in layer['legend']:
                 label = legend_item['label']
                 # URL til hvert symbolbillede
-                image_url = f"https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/{legend_item['url']}"
+                image_url = f"data:image/png;base64,{legend_item['imageData']}" #f"https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/{legend_item['url']}"
                 
                 # Vis label og billede
                 if label:
