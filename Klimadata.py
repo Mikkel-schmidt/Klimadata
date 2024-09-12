@@ -185,7 +185,7 @@ if check_password():
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m2)
 
-        col1, col2 = st.columns([5,1])
+        col1, col2 = st.columns([3,1])
         with col1:
             # Vis kortet i Streamlit og opdater det dynamisk
             st_folium(m2, width='100%', height=700)
