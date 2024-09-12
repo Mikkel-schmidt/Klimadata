@@ -322,12 +322,19 @@ if check_password():
             show=True,
         ).add_to(m4)
 
+        legend_url = f'https://api.dataforsyningen.dk/dhm?token={st.secrets['token']}&version=1.1.1&service=WMS&request=GetLegendGraphic&layer={selected_layer_value1}&format=image/png&STYLE={selected_style_value}'
+        legend_html = legendhtml(legend_url)
+
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m4)
 
-        
-        # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m4, width=1200, height=700)
+        col1, col2 = st.columns([3,1])
+        with col1: 
+            # Vis kortet i Streamlit og opdater det dynamisk
+            st_folium(m4, width='100%', height=700)
+        with col2:
+            # Tilføj signaturforklaringen til kortet som en HTML-element
+            st.components.v1.html(legend_html, height=250)
 
     with tab5: ############# GRUNDVAND #####################
 
