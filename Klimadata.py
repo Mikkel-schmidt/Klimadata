@@ -44,7 +44,7 @@ if check_password():
 
     # Tjek om geokodningen lykkedes
     if location:
-        st.toast('Adresse fundet')
+        st.success('Adresse fundet')
         latitude, longitude = location.latitude, location.longitude
     else:
         st.write("Kunne ikke finde den angivne adresse.")
