@@ -458,8 +458,8 @@ if check_password():
 
         
 
-        for layer in legend_data['layers']:
-            for legend_item in layer['legend'][0:]:
+        for layer in legend_data['layers'][2]:
+            for legend_item in layer['legend']:
                 label = legend_item['label']
                 # URL til hvert symbolbillede
                 image_url = f"data:image/png;base64,{legend_item['imageData']}" #f"https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/{legend_item['url']}"
