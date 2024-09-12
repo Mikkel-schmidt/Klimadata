@@ -33,8 +33,6 @@ def legendhtml(legend_url):
 st.logo('NRGi_grøn.png', link='https://nrgi.dk')
 
 if check_password():
-    st.success('Login success')
-
     # Opret en geokodningsfunktion ved hjælp af Nominatim
     geolocator = Nominatim(user_agent="Klimadata")
 
@@ -46,7 +44,7 @@ if check_password():
 
     # Tjek om geokodningen lykkedes
     if location:
-        st.success('Adresse fundet')
+        st.toast('Adresse fundet')
         latitude, longitude = location.latitude, location.longitude
     else:
         st.write("Kunne ikke finde den angivne adresse.")
