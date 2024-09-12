@@ -9,4 +9,3 @@ branca
 geopandas
 shapely
 requests
-json
