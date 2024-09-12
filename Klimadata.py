@@ -191,6 +191,41 @@ if check_password():
         # Tilføj signaturforklaringen til kortet som en HTML-element
         st.components.v1.html(legend_html, height=250)
 
+        # Dynamic legend with JavaScript to adjust position
+        dynamic_legend_html = f"""
+            <style>
+            #legend {{
+                position: absolute;
+                bottom: 50px;
+                right: 10px;
+                z-index: 9999;
+                background-color: white;
+                border: 2px solid grey;dynamic legend
+                padding: 10px;
+                width: 200px;
+                transition: all 0.3s ease;
+            }}
+            </style>
+
+            <div id="legend">
+                <img src="{legend_url}" alt="Legend" style="width: 100%;">
+            </div>
+
+            <script>
+            const map = document.getElementsByClassName("folium-map")[0];
+            const legend = document.getElementById("legend");
+
+            window.addEventListener('scroll', function() {{
+                const mapRect = map.getBoundingClientRect();
+                legend.style.top = Math.max(50, mapRect.bottom - 250) + 'px';  // Adjust legend's top position dynamically
+                legend.style.right = (window.innerWidth - mapRect.right + 10) + 'px';  // Adjust right position based on map
+            }});
+            </script>
+        """
+
+        # Use Streamlit's html function to display the dynamic legend
+        st.components.v1.html(dynamic_legend_html, height=300)
+
     with tab3: ############# FLOW ##########################
 
          # Create a selectbox for layers (frontend-friendly names)
