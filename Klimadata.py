@@ -348,6 +348,7 @@ if check_password():
         st_folium(m5, width=1200, height=700)
 
     with tab6: # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
+        
         valgt_haendelse = st.selectbox('Vælg et hændelsesinterval:', ['20-års hændelse', '100-års hændelse', '1000-års hændelse'])
 
         # Create a map centered on Denmark
