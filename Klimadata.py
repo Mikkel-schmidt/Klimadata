@@ -456,12 +456,10 @@ if check_password():
         # Parse JSON data
         legend_data = json.loads(response.text)
 
-        # Opret en liste af symboler og labels
-        col2.title("Signaturforklaring (Legend)")
+        
 
         for layer in legend_data['layers']:
-            col2.subheader(f"Layer: {layer['layerName']}")
-            for legend_item in layer['legend']:
+            for legend_item in layer['legend'][2:]:
                 label = legend_item['label']
                 # URL til hvert symbolbillede
                 image_url = f"data:image/png;base64,{legend_item['imageData']}" #f"https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/{legend_item['url']}"
