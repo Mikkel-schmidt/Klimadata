@@ -468,7 +468,7 @@ if check_password():
                 if label:
                     col11, col22 = col2.columns([1, 3])
                     col11.image(image_url)
-                    col22.write(f"Vanddybde: {label}")
+                    col22.write(f"{label}")
 
     with tab7:
 
