@@ -8,3 +8,5 @@ streamlit_folium
 branca
 geopandas
 shapely
+requests
+json

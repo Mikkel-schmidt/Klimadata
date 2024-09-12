@@ -6,7 +6,8 @@ import folium
 from folium.raster_layers import WmsTileLayer
 from geopy.geocoders import Nominatim
 from streamlit_folium import st_folium
-import branca.colormap as cm
+import requests
+import json
 
 from streamlit_functions import check_password
 
@@ -433,11 +434,41 @@ if check_password():
             show=True
         ).add_to(m6)
 
+        
+
         # Add Layer Control
         folium.LayerControl().add_to(m6)
+        col1, col2 = st.columns([3,1])
+        with col1: 
+            # Vis kortet i Streamlit og opdater det dynamisk
+            st_folium(m4, width='100%', height=700)
+        #with col2:
+            # Tilføj signaturforklaringen til kortet som en HTML-element
+            #st.components.v1.html(legend_html, height=250)
 
-        # Display the map
-        st_folium(m6, width=1200, height=700)
+        # URL til legend-endpointet
+        legend_url = "https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/legend?f=json"
+
+        # Hent JSON data fra endpointet
+        response = requests.get(legend_url)
+
+        # Parse JSON data
+        legend_data = json.loads(response.text)
+
+        # Opret en liste af symboler og labels
+        col2.title("Signaturforklaring (Legend)")
+
+        for layer in legend_data['layers']:
+            col2.subheader(f"Layer: {layer['layerName']}")
+            for legend_item in layer['legend']:
+                label = legend_item['label']
+                # URL til hvert symbolbillede
+                image_url = f"https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/{legend_item['url']}"
+                
+                # Vis label og billede
+                if label:
+                    col2.write(f"Label: {label}")
+                col2.image(image_url)
 
     with tab7:
 
