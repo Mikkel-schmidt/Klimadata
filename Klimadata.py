@@ -11,12 +11,7 @@ import json
 
 from streamlit_functions import check_password
 
-st.set_page_config(layout="wide", page_title="NRGi Klimatjek", page_icon='NRGi_hvid.jpg',
-                   menu_items={
-        'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug",
-        'About': "# This is a header. This is an *extremely* cool app!"
-    })
+st.set_page_config(layout="wide", page_title="NRGi Klimatjek", page_icon='NRGi_hvid.jpg')
 
 # Tilføj HTML/CSS til legenden i nederste højre hjørne ved hjælp af st.components.v1.html
 def legendhtml(legend_url):
@@ -35,7 +30,7 @@ def legendhtml(legend_url):
     '''
     return 
 
-st.logo('NRGi_grøn.png', link='https://nrgi.dk', icon_image='NRGi_hvid.jpg')
+st.logo('NRGi_grøn.png', link='https://nrgi.dk')
 
 if check_password():
     st.success('Login success')
