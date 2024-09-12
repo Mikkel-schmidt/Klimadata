@@ -189,9 +189,9 @@ if check_password():
         with col1:
             # Vis kortet i Streamlit og opdater det dynamisk
             st_folium(m2, width='100%', height=700)
-            
-        # Tilføj signaturforklaringen til kortet som en HTML-element
-        col2.components.v1.html(legend_html, height=250)
+        with col2:
+            # Tilføj signaturforklaringen til kortet som en HTML-element
+            st.components.v1.html(legend_html, height=250)
 
         # Dynamic legend with JavaScript to adjust position
         dynamic_legend_html = f"""
