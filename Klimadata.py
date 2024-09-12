@@ -176,7 +176,7 @@ if check_password():
             border:2px solid grey;
             padding: 0px;
             ">
-            <img src="{legend_url}" alt="Legend" style="width: 200px;">
+            <img src="{legend_url}" alt="Legend" style="width: 100%;">
             </div>
             '''
 
