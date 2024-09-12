@@ -348,19 +348,24 @@ if check_password():
         st_folium(m5, width=1200, height=700)
 
     with tab6: # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
-        
+
         valgt_haendelse = st.selectbox('Vælg et hændelsesinterval:', ['20-års hændelse', '100-års hændelse', '1000-års hændelse'])
 
         # Create a map centered on Denmark
         m6 = folium.Map(location=[56, 12], zoom_start=10, crs='EPSG3857')
 
+        if valgt_haendelse == '20-års hændelse': haendelse = 'OSD_20aars_40cm'
+        elif valgt_haendelse == '1000-års hændelse': haendelse = 'OSD_100aars_40cm'
+        elif valgt_haendelse == '1000-års hændelse': haendelse = 'OSD_1000aars_40cm_vandlob
+        else haendelse = 'OSD_20aars_40cm'
+
         # WMS server URL
-        wms_url = 'https://gis.nst.dk/server/services/ekstern/OSD_1000aars_40cm_vandlob/MapServer/WMSServer'
+        wms_url = f'https://gis.nst.dk/server/services/ekstern/{haendelse}/MapServer/WMSServer'
 
         # Add Mosaic Layer (0)
         WmsTileLayer(
             url=wms_url,
-            name='1000 års hændelse 40 cm (Mosaic Layer)',
+            name=valgt_haendelse,
             layers='0',  # Layer ID for Mosaic Layer
             styles='default',
             fmt='image/png',
