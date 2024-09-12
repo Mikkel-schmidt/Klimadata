@@ -181,7 +181,7 @@ if check_password():
                 '''
 
             # Tilføj signaturforklaringen til kortet som en HTML-element
-            m2.get_root().html.add_child(folium.Element(legend_html))
+            st.components.v1.html(legend_html, height=250)
 
 
         # Tilføj kontrolpanel til at vælge mellem lagene
