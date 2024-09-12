@@ -165,12 +165,23 @@ if check_password():
             # URL for signaturforklaringen (legend)
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
 
-            # Opret en iframe for at vise signaturforklaringen
-            iframe = folium.IFrame('<img src="{}" style="width:200px;">'.format(legend_url), width=220, height=100)
-            popup = folium.Popup(iframe, max_width=2650)
+            # HTML for signaturforklaringen med positionering i nederste højre hjørne
+            legend_html = f'''
+                <div style="
+                position: fixed;
+                bottom: 50px;
+                right: 10px;
+                z-index: 9999;
+                background-color: white;
+                border:2px solid grey;
+                padding: 10px;
+                ">
+                <img src="{legend_url}" alt="Legend" style="width: 200px;">
+                </div>
+                '''
 
-            # Tilføj signaturforklaringen som en marker eller i sidepanelet
-            folium.Marker([56, 12], popup=popup).add_to(m2)
+            # Tilføj signaturforklaringen til kortet som en HTML-element
+            m2.get_root().html.add_child(folium.Element(legend_html))
 
 
         # Tilføj kontrolpanel til at vælge mellem lagene
