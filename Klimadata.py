@@ -352,7 +352,7 @@ if check_password():
         valgt_haendelse = st.selectbox('Vælg et hændelsesinterval:', ['20-års hændelse', '100-års hændelse', '1000-års hændelse'])
 
         # Create a map centered on Denmark
-        m6 = folium.Map(location=[56, 12], zoom_start=10, crs='EPSG3857')
+        m6 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         if valgt_haendelse == '20-års hændelse': haendelse = 'OSD_20aars_40cm'
         elif valgt_haendelse == '1000-års hændelse': haendelse = 'OSD_100aars_40cm'
