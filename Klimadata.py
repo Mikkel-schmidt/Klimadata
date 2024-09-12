@@ -166,7 +166,7 @@ if check_password():
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
 
             # Tilføj HTML/CSS til legenden i nederste højre hjørne ved hjælp af st.components.v1.html
-        legend_html = f'''
+            legend_html = f'''
             <div style="
             position: fixed;
             bottom: 50px;
