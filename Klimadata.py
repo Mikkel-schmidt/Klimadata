@@ -356,7 +356,7 @@ if check_password():
 
         if valgt_haendelse == '20-års hændelse': haendelse = 'OSD_20aars_40cm'
         elif valgt_haendelse == '1000-års hændelse': haendelse = 'OSD_100aars_40cm'
-        elif valgt_haendelse == '1000-års hændelse': haendelse = 'OSD_1000aars_40cm_vandlob
+        elif valgt_haendelse == '1000-års hændelse': haendelse = 'OSD_1000aars_40cm_vandlob'
         else haendelse = 'OSD_20aars_40cm'
 
         # WMS server URL
