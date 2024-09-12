@@ -642,6 +642,6 @@ if check_password():
         folium.LayerControl().add_to(m7)
         
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m7, width=1200, height=700)
+        st_folium(m7, width='100%', height=700)
 
 
