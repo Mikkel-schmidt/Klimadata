@@ -362,6 +362,9 @@ if check_password():
         # WMS server URL
         wms_url = f'https://gis.nst.dk/server/services/ekstern/{haendelse}/MapServer/WMSServer'
 
+        # Tilføj et baselayer
+        folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m1)
+
         # Add Mosaic Layer (0)
         WmsTileLayer(
             url=wms_url,
