@@ -280,7 +280,7 @@ if check_password():
         filtered_styles = layers_styles[layers_styles['layer_name'] == selected_layer_name]
 
         # Create a selectbox for styles (frontend-friendly names)
-        selected_style_name = st.selectbox('Vælg et gummistøvleindeks', filtered_styles['style_name'], index=10, key="style_select_gummi")
+        selected_style_name = st.selectbox('Vælg et gummistøvleindeks', filtered_styles['style_name'], index=9, key="style_select_gummi")
 
         # Find den tilsvarende style-værdi (backend value) baseret på valgt stil-navn
         selected_style_value = 'Default'
@@ -399,13 +399,19 @@ if check_password():
             show=True,
             opacity=0.5  # Adjust opacity (if supported)
         ).add_to(m5)
+        legend_url = f'https://api.dataforsyningen.dk/hip_dtg_10m_100m?token={st.secrets['token']}&version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer={selected_layer_value}&format=image/png&STYLE={selected_style_value}'
+        legend_html = legendhtml(legend_url)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m5)
-
         
-        # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m5, width=1200, height=700)
+        col1, col2 = st.columns([3,1])
+        with col1: 
+            # Vis kortet i Streamlit og opdater det dynamisk
+            st_folium(m5, width='100%', height=700)
+        with col2:
+            # Tilføj signaturforklaringen til kortet som en HTML-element
+            st.components.v1.html(legend_html, height=250)
 
     with tab6: ############# VANDLØB #######################
         # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
