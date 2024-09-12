@@ -3,6 +3,7 @@ import pandas as pd
 import geopandas as gpd
 from shapely import wkt
 import folium
+from folium.raster_layers import WmsTileLayer
 from geopy.geocoders import Nominatim
 from streamlit_folium import st_folium
 import branca.colormap as cm
@@ -346,8 +347,33 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m5, width=1200, height=700)
 
-    with tab6:
-        st.write('Mangler data')
+    with tab6: # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
+        valgt_haendelse = st.selectbox('Vælg et hændelsesinterval:', ['20-års hændelse', '100-års hændelse', '1000-års hændelse'])
+
+        # Create a map centered on Denmark
+        m6 = folium.Map(location=[56, 12], zoom_start=10, crs='EPSG3857')
+
+        # WMS server URL
+        wms_url = 'https://gis.nst.dk/server/services/ekstern/OSD_1000aars_40cm_vandlob/MapServer/WMSServer'
+
+        # Add Mosaic Layer (0)
+        WmsTileLayer(
+            url=wms_url,
+            name='1000 års hændelse 40 cm (Mosaic Layer)',
+            layers='0',  # Layer ID for Mosaic Layer
+            styles='default',
+            fmt='image/png',
+            transparent=True,
+            version='1.1.1',
+            control=True,
+            show=True
+        ).add_to(m6)
+
+        # Add Layer Control
+        folium.LayerControl().add_to(m6)
+
+        # Display the map
+        st_folium(m6, width=1200, height=700)
 
     with tab7:
 
