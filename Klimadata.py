@@ -170,7 +170,7 @@ if check_password():
             <div style="
             position: fixed;
             bottom: 50px;
-            right: 10px;
+            left: 10px;
             z-index: 9999;
             background-color: white;
             border:2px solid grey;
@@ -180,8 +180,6 @@ if check_password():
             </div>
             '''
 
-            # Tilføj signaturforklaringen til kortet som en HTML-element
-            st.components.v1.html(legend_html, height=250)
 
 
         # Tilføj kontrolpanel til at vælge mellem lagene
@@ -190,6 +188,8 @@ if check_password():
         
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m2, width=1200, height=700)
+        # Tilføj signaturforklaringen til kortet som en HTML-element
+        st.components.v1.html(legend_html, height=250)
 
     with tab3: ############# FLOW ##########################
 
