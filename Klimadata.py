@@ -38,7 +38,7 @@ if check_password():
     layers_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/layers_and_styles.csv', sep=';')
     #st.write(layers_styles)
 
-    with tab1:
+    with tab1: ############# HAVVAND #######################
         # Create a selectbox for layers (frontend-friendly names)
         selected_layer_name = 'Havvand på Land' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
 
@@ -94,7 +94,7 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m1, width=1200, height=700)
 
-    with tab2:
+    with tab2: ############# EKSTREMREGN ###################
         # Create a selectbox for layers (frontend-friendly names)
         selected_layer_name = 'Skybrud og Ekstremregn' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
 
@@ -116,6 +116,9 @@ if check_password():
 
         # st.write(f'Valgt lag: {selected_layer_value}')
         # st.write(f'Valgt stil: {selected_style_value}')
+
+        st.toggle('Vis kloakoplande', key='Kloakoplande')
+        
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
         m2 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
@@ -144,6 +147,22 @@ if check_password():
             show=True,
         ).add_to(m2)
 
+        if st.session_state['Kloakoplande'] == True:
+            # Tilføj WMS-lag dynamisk baseret på listen over lag
+            folium.raster_layers.WmsTileLayer(
+                url='https://geoserver.plandata.dk/geoserver/ows',
+                name='Test Layer',
+                layers='pdk:theme_pdk_kloakopland_vedtaget_v',
+                styles='',  # Leave empty to test
+                fmt='image/png',
+                transparent=True,
+                version='1.1.1',
+                overlay=True,
+                control=True,
+                opacity=0.5
+            ).add_to(m2)
+
+
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m2)
 
@@ -151,7 +170,7 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m2, width=1200, height=700)
 
-    with tab3:
+    with tab3: ############# FLOW ##########################
 
          # Create a selectbox for layers (frontend-friendly names)
         selected_layer_name = 'Flow ekstremregn' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
@@ -216,7 +235,7 @@ if check_password():
             # Vis kortet i Streamlit og opdater det dynamisk
             st_folium(m3, width=1200, height=700)
 
-    with tab4:
+    with tab4: ############# GUMMISTØVLE ###################
         # Create a selectbox for layers (frontend-friendly names)
         selected_layer_name = 'Gummistøvleindeks Havvand' #= tab1.selectbox('Vælg et lag', layers_styles['layer_name'].unique(), index=2, key="layer_select")
 
@@ -276,7 +295,7 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m4, width=1200, height=700)
 
-    with tab5:
+    with tab5: ############# GRUNDVAND #####################
 
         grundvand_styles = pd.read_csv('https://raw.githubusercontent.com/Mikkel-schmidt/Klimadata/master/Grundvand_model.csv', sep=';')
         # Create a selectbox for layers (frontend-friendly names)
@@ -347,7 +366,8 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m5, width=1200, height=700)
 
-    with tab6: # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
+    with tab6: ############# VANDLØB #######################
+        # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
 
         valgt_haendelse = st.selectbox('Vælg et hændelsesinterval:', ['20-års hændelse', '100-års hændelse', '1000-års hændelse'])
 
