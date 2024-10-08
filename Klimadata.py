@@ -40,7 +40,7 @@ if check_password():
     adresse = st.text_input("Skriv adresse", value="Kongens Nytorv 34, 1050 København")
 
     # Geokod adressen (find koordinaterne)
-    location = geolocator.geocode(adresse)
+    location = geolocator.geocode(adresse, timeout=10)
 
     # Tjek om geokodningen lykkedes
     if location:
