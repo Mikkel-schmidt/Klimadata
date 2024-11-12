@@ -143,9 +143,9 @@ def Ekstremregn_punkt(latitude, longitude):
         if value_0_element is not None and value_0_element.text is not None:
             # Returner den fundne værdi
             value_0 = float(value_0_element.text)*100
-            print(f"vandet begynder at lægge sig ved: {value_0}")
+            st.write(f"vandet begynder at lægge sig ved: {value_0}")
             return (value_0)
         else:
-            print("Ingen gyldig value_0 fundet")
+            st.write("Ingen gyldig value_0 fundet")
     except ET.ParseError:
         print('Kunne ikke parse XML responsen korrekt')
