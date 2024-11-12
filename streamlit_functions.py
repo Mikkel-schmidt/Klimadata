@@ -142,7 +142,7 @@ def Ekstremregn_punkt(latitude, longitude):
 
         if value_0_element is not None and value_0_element.text is not None:
             # Returner den fundne værdi
-            value_0 = float(value_0_element.text)*100
+            value_0 = float(value_0_element.text)*1000
             st.write(f"vandet begynder at lægge sig ved: {value_0}")
             return (value_0)
         else:
