@@ -646,6 +646,8 @@ if check_password():
             line_opacity=0.2,
             legend_name=valgt_variabel
         ).add_to(m7)
+        
+        folium.Marker([latitude, longitude], popup=adresse).add_to(m1)
 
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m7)
