@@ -11,7 +11,7 @@ from streamlit_folium import st_folium
 import requests
 import json
 
-from streamlit_functions import check_password, find_laveste_punkt, beregn_vanddybde
+from streamlit_functions import check_password, find_laveste_punkt, beregn_vanddybde, Ekstremregn_punkt
 
 st.set_page_config(layout="wide", page_title="NRGi Klimatjek", page_icon='NRGi_hvid.jpg')
 
@@ -650,7 +650,6 @@ if check_password():
         st_folium(m7, width='100%', height=700)
 
     with colu1:
-        
         try:
             laveste_punkt = find_laveste_punkt(latitude, longitude)
             st.write(f"Laveste punkt: {laveste_punkt:.2f} meter")
@@ -661,3 +660,7 @@ if check_password():
                 st.write(f"Vanddybde ved stormflodshøjde på {højde} m: {vanddybde:.2f} m")
         except ValueError as e:
             print(e)
+
+    with colu2:
+        Ekstremregn_punkt(latitude, longitude)
+    

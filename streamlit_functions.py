@@ -100,3 +100,52 @@ def beregn_vanddybde(value_0, vandstigning):
         return 0  # Ingen oversvømmelse, vanddybden er 0
     else:
         return vandstigning - value_0
+
+@st.cache_data
+def Ekstremregn_punkt(latitude, longitude):
+    bbox = f"{longitude - 0.005},{latitude - 0.005},{longitude + 0.005},{latitude + 0.005}"
+    wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=30494b8c7d48e71467a3bca51afaf457'
+
+    # Iterer gennem hver stil for at finde laveste niveau, hvor value_0 findes
+
+    params = {
+        'service': 'WMS',
+        'request': 'GetFeatureInfo',
+        'version': '1.1.1',
+        'layers': 'dhm_bluespot_ekstremregn',
+        'query_layers': 'dhm_bluespot_ekstremregn',
+        'styles': 'bluespot_ekstremregn_0_090',
+        'bbox': bbox,
+        'width': '256',
+        'height': '256',
+        'x': '128',
+        'y': '128',
+        'srs': 'EPSG:4326',
+        'format': 'image/png',
+        'info_format': 'application/vnd.ogc.gml',
+        'i': '50',
+        'j': '50'
+    }
+
+    # Send forespørgslen til WMS-serveren
+    response = requests.get(wms_url, params=params)
+
+    # Kontroller om forespørgslen lykkedes
+    if response.status_code != 200:
+        print(f"Fejl ved forespørgsel: {response.status_code}")
+        raise ValueError("Forespørgsel til WMS-server mislykkedes")
+
+    # Udskriv og parse XML-responsen
+    try:
+        root = ET.fromstring(response.text)
+        value_0_element = root.find('.//value_0')
+
+        if value_0_element is not None and value_0_element.text is not None:
+            # Returner den fundne værdi
+            value_0 = float(value_0_element.text)*100
+            print(f"vandet begynder at lægge sig ved: {value_0}")
+            return (value_0)
+        else:
+            print("Ingen gyldig value_0 fundet")
+    except ET.ParseError:
+        print('Kunne ikke parse XML responsen korrekt')
