@@ -9,7 +9,7 @@ from streamlit_folium import st_folium
 import requests
 import json
 
-from streamlit_functions import check_password
+from streamlit_functions import check_password, find_laveste_punkt
 
 st.set_page_config(layout="wide", page_title="NRGi Klimatjek", page_icon='NRGi_hvid.jpg')
 
@@ -49,6 +49,14 @@ if check_password():
     else:
         st.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
+
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        try:
+            laveste_punkt = find_laveste_punkt(latitude, longitude)
+            st.write(f"Den laveste værdi inden for 20 meter er: {laveste_punkt:.2f} meter")
+        except ValueError as e:
+            print(e)
 
     tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Havvand', 'Skybrud og ekstremregn', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
 
