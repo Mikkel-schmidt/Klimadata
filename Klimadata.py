@@ -626,8 +626,8 @@ if check_password():
             gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
             gdf.to_crs(epsg=4326)
             punkt = Point(longitude, latitude)
-            match = gdf[gdf.contains(punkt)]
-            st.write(gdf[gdf.contains(punkt)])
+            #match = gdf[gdf.contains(punkt)]
+            st.write(gdf.contains(punkt))
         #st.write(gdf.head()) 
 
 
