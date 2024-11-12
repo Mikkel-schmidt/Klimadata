@@ -146,6 +146,6 @@ def Ekstremregn_punkt(latitude, longitude):
             st.write(f"vandet begynder at lægge sig ved: {value_0}")
             return (value_0)
         else:
-            st.write("Ingen gyldig value_0 fundet")
+            st.write("Ingen problemer ved skybrud")
     except ET.ParseError:
         print('Kunne ikke parse XML responsen korrekt')
