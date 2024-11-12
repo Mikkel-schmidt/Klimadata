@@ -30,7 +30,8 @@ def check_password():
     else:
         # Password correct.
         return True
-    
+
+@st.cache_data
 def find_laveste_punkt(latitude, longitude):
     # Konvertering fra meter til grader
     lat_offset = 20 / 111320  # Omtrentlig konvertering for breddegrad
