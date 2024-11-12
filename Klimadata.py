@@ -11,7 +11,7 @@ from streamlit_folium import st_folium
 import requests
 import json
 
-from streamlit_functions import check_password, find_laveste_punkt
+from streamlit_functions import check_password, find_laveste_punkt, beregn_vanddybde
 
 st.set_page_config(layout="wide", page_title="NRGi Klimatjek", page_icon='NRGi_hvid.jpg')
 
@@ -53,12 +53,7 @@ if check_password():
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
     col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        try:
-            laveste_punkt = find_laveste_punkt(latitude, longitude)
-            st.write(f"Den laveste værdi inden for 20 meter er: {laveste_punkt:.2f} meter")
-        except ValueError as e:
-            print(e)
+    
 
     tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Havvand', 'Skybrud og ekstremregn', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
 
@@ -654,4 +649,15 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m7, width='100%', height=700)
 
-
+    with col1:
+        
+        try:
+            laveste_punkt = find_laveste_punkt(latitude, longitude)
+            st.write(f"Laveste punkt: {laveste_punkt:.2f} meter")
+            # Beregn vanddybder ved forskellige stormflodshøjder
+            stormflodshøjder = [2.0, 4.0, 6.0]  # Eksempler på stormflodshøjder
+            for højde in stormflodshøjder:
+                vanddybde = beregn_vanddybde(laveste_punkt, højde)
+                st.write(f"Vanddybde ved stormflodshøjde på {højde} m: {vanddybde:.2f} m")
+        except ValueError as e:
+            print(e)

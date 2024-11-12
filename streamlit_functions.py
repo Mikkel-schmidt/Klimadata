@@ -94,3 +94,9 @@ def find_laveste_punkt(latitude, longitude):
         raise ValueError("Ingen gyldig værdi fundet inden for 20 meter")
 
     return laveste_vaerdi
+
+def beregn_vanddybde(value_0, vandstigning):
+    if vandstigning < value_0:
+        return 0  # Ingen oversvømmelse, vanddybden er 0
+    else:
+        return vandstigning - value_0
