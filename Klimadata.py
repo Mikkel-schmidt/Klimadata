@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 from shapely import wkt
+from shapely.geometry import Point
 import xml.etree.ElementTree as ET
 import math
 import folium
@@ -624,6 +625,9 @@ if check_password():
             ]
             gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
             gdf.to_crs(epsg=4326)
+            punkt = Point(longitude, latitude)
+            match = gdf[gdf.contains(punkt)]
+            st.write(match)
         #st.write(gdf.head()) 
 
 
