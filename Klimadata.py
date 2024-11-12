@@ -52,7 +52,7 @@ if check_password():
         st.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
-    col1, col2, col3, col4 = st.columns(4)
+    colu1, colu2, colu3, colu4 = st.columns(4)
     
 
     tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Havvand', 'Skybrud og ekstremregn', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
@@ -649,7 +649,7 @@ if check_password():
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m7, width='100%', height=700)
 
-    with col1:
+    with colu1:
         
         try:
             laveste_punkt = find_laveste_punkt(latitude, longitude)
