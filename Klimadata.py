@@ -661,13 +661,13 @@ if check_password():
         st_folium(m7, width='100%', height=700)
 
     with colum1:
-        st.write('Havvand')
+        st.write('**Havvand**')
         st.write('🟢 10-års hændelser')
         st.write('🟢 50-års hændelser')
         st.write('🟡 100-års hændelser')
 
     with colum2:
-        st.write('Skybrud og ekstremregn')
+        st.write('**Skybrud og ekstremregn**')
         st.write('🟢 10-års hændelser')
         st.write('🟡 50-års hændelser')
         st.write('🟡 100-års hændelser')
@@ -679,13 +679,14 @@ if check_password():
         st.write('🔴 100-års hændelser')
 
     with colum4:
-        st.write('Grundvand')
+        st.write('**Grundvand**')
         st.write('🟡 Højt grundvand sommer')
         st.write('🟢 Højt grundvand vinter')
 
     
 
     with colu1:
+        st.write('**Havvand**')
         try:
             laveste_punkt = find_laveste_punkt(latitude, longitude)
             st.write(f"Laveste punkt: {laveste_punkt:.2f} meter")
@@ -699,5 +700,12 @@ if check_password():
             print(e)
 
     with colu2:
+        st.write('**Skybrud og ekstremregn**')
         Ekstremregn_punkt(latitude, longitude)
+
+    with colu3:
+        st.write('**Vandløb**')
+
+    with colu4:
+        st.write('**Grundvand**')
     
