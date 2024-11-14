@@ -695,7 +695,7 @@ if check_password():
             stormflodshøjder = [2.0, 4.0, 6.0]  # Eksempler på stormflodshøjder
             for højde in stormflodshøjder:
                 vanddybde = beregn_vanddybde(laveste_punkt, højde)
-                st.write(f"Vanddybde ved stormflodshøjde på {højde} m: {vanddybde:.2f} m")
+                st.write(f"Vanddybde stormflodshøjde på {højde} m: {vanddybde:.2f} m")
         except ValueError as e:
             st.write(f"Adressen påvirkes ikke af stormflod")
             print(e)
