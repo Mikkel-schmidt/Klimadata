@@ -666,19 +666,19 @@ if check_password():
         st.write('🟢 50-års hændelser')
         st.write('🟡 100-års hændelser')
 
-    with colum1:
+    with colum2:
         st.write('Skybrud og ekstremregn')
         st.write('🟢 10-års hændelser')
         st.write('🟡 50-års hændelser')
         st.write('🟡 100-års hændelser')
 
-    with colum1:
+    with colum3:
         st.write('Vandløb')
         st.write('🟡 10-års hændelser')
         st.write('🔴 50-års hændelser')
         st.write('🔴 100-års hændelser')
 
-    with colum1:
+    with colum4:
         st.write('Grundvand')
         st.write('🟡 Højt grundvand sommer')
         st.write('🟢 Højt grundvand vinter')
