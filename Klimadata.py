@@ -673,7 +673,7 @@ if check_password():
         st.write('🟡 100-års hændelser')
 
     with colum3:
-        st.write('Vandløb')
+        st.write('**Vandløb**')
         st.write('🟡 10-års hændelser')
         st.write('🔴 50-års hændelser')
         st.write('🔴 100-års hændelser')
