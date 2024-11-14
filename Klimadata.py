@@ -40,7 +40,7 @@ if check_password():
     geolocator = Nominatim(user_agent="Klimadata")
 
     # Angiv adressen
-    adresse = st.text_input("Skriv adresse", value="Kongens Nytorv 34, 1050 København")
+    adresse = st.text_input("Skriv adresse", value="Store Torv 4, 8000 Aarhus")
 
     # Geokod adressen (find koordinaterne)
     location = geolocator.geocode(adresse, timeout=10)
@@ -53,6 +53,11 @@ if check_password():
         st.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
+    st.subheader('Årshændelser')
+    st.write('Årshændelser baseret på midt århundrede fremskrivninger.')
+    colum1, colum2, colum3, colum4 = st.columns(4)
+
+    st.subheader('Varselsniveau')
     colu1, colu2, colu3, colu4 = st.columns(4)
     
 
@@ -654,6 +659,31 @@ if check_password():
         
         # Vis kortet i Streamlit og opdater det dynamisk
         st_folium(m7, width='100%', height=700)
+
+    with colum1:
+        st.write('Havvand')
+        st.write('🟢 10-års hændelser')
+        st.write('🟢 50-års hændelser')
+        st.write('🟡 100-års hændelser')
+
+    with colum1:
+        st.write('Skybrud og ekstremregn')
+        st.write('🟢 10-års hændelser')
+        st.write('🟡 50-års hændelser')
+        st.write('🟡 100-års hændelser')
+
+    with colum1:
+        st.write('Vandløb')
+        st.write('🟡 10-års hændelser')
+        st.write('🔴 50-års hændelser')
+        st.write('🔴 100-års hændelser')
+
+    with colum1:
+        st.write('Grundvand')
+        st.write('🟡 Højt grundvand sommer')
+        st.write('🟢 Højt grundvand vinter')
+
+    
 
     with colu1:
         try:
