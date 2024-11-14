@@ -53,12 +53,13 @@ if check_password():
         st.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
-    st.subheader('Årshændelser')
-    st.write('Årshændelser baseret på midt århundrede fremskrivninger.')
-    colum1, colum2, colum3, colum4 = st.columns(4)
+    with st.expander('Årshændelser og varselsniveauer'):
+        st.subheader('Årshændelser')
+        st.write('Årshændelser baseret på midt århundrede fremskrivninger.')
+        colum1, colum2, colum3, colum4 = st.columns(4)
 
-    st.subheader('Varselsniveau')
-    colu1, colu2, colu3, colu4 = st.columns(4)
+        st.subheader('Varselsniveau')
+        colu1, colu2, colu3, colu4 = st.columns(4)
     
 
     tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(['Havvand', 'Skybrud og ekstremregn', 'Flyderetning', 'Gummistøvleindeks', 'Grundvand', 'Vandløb', 'Klimaatlas'])
@@ -684,7 +685,7 @@ if check_password():
         st.write('🟢 Højt grundvand vinter')
 
     
-
+    
     with colu1:
         st.write('**Havvand**')
         try:
