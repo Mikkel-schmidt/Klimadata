@@ -687,7 +687,7 @@ if check_password():
         fg = folium.FeatureGroup(name="Data")
 
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
-        fg.add_Child(folium.Choropleth(
+        fg.add_child(folium.Choropleth(
             geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
             name=valgt_variabel,
             data=gdf,
@@ -699,7 +699,7 @@ if check_password():
             legend_name=valgt_variabel
         ))
 
-        fg.add_Child(folium.Marker(CENTER_START, popup=adresse))#.add_to(m7)
+        fg.add_child(folium.Marker(CENTER_START, popup=adresse))#.add_to(m7)
 
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m7)
