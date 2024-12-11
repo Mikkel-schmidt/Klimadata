@@ -220,7 +220,7 @@ if check_password():
             st.image(legend_url, caption=f"Legend for {selected_layer_name} ({selected_style_name})")
             if st.session_state['Kloakoplande'] == True:
                 # signaturforklaringen til kortet som en HTML-element
-                st.components.v1.html(legend_html, height=250)
+                st.components.v1.html(legend_html)
 
         # Construct the WMS GetCapabilities URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
