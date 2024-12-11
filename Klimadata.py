@@ -212,6 +212,28 @@ if check_password():
                 # signaturforklaringen til kortet som en HTML-element
                 st.components.v1.html(legend_html, height=250)
 
+        # Construct the WMS GetCapabilities URL
+        wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+
+        # Initialize the WMS service
+        wms = WebMapService(wms_url)
+
+        # List available layers
+        layers = list(wms.contents)
+        st.write("Available layers:", layers)
+
+        # Choose a layer (for demonstration, we pick the first one)
+        layer_name = layers[0]  # Replace with your desired layer name
+        st.write(f"Using layer: {layer_name}")
+
+        # Get the legend URL for the chosen layer
+        layer = wms[layer_name]
+        legend_url = layer.styles[next(iter(layer.styles))]['legend']  # Use the first available style
+        st.write("Legend URL:", legend_url)
+
+        # Embed the legend in Streamlit
+        st.image(legend_url, caption="Layer Legend")
+
     with tab3: ############# FLOW ##########################
 
          # Create a selectbox for layers (frontend-friendly names)
