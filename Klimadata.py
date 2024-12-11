@@ -537,7 +537,7 @@ if check_password():
                 
                 # Vis label og billede
                 if label:
-                    col11, col22 = col2.columns([1, 5])
+                    col11, col22 = col2.columns([1, 6])
                     col11.image(image_url)
                     col22.write(f"{label}")
 
