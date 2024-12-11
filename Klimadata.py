@@ -298,9 +298,7 @@ if check_password():
                 st_folium(m3, width='100%', height=700)
             with col2:
                 st.image(legend_url)
-                if st.session_state['Kloakoplande'] == True:
-                    # signaturforklaringen til kortet som en HTML-element
-                    st.components.v1.html(legend_html)
+                
 
             legend_url = 'https://api.dataforsyningen.dk/dhm?token=' + st.secrets['token'] + '&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=dhm_flow_ekstremregn&format=image/png&STYLE=default'
             legend_html = legendhtml(legend_url)
