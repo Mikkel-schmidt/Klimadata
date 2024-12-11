@@ -241,8 +241,14 @@ if check_password():
             st.error(f"Style '{style_name}' not found for layer '{layer_name}'.")
         else:
             # Construct the GetLegendGraphic URL
-            legend_url = f"https://api.dataforsyningen.dk/dhm?service=WMS&request=GetLegendGraphic&layer={layer_name}&style={style_name}&token=" + st.secrets['token']
-
+            # Construct the legend URL
+            legend_url = (
+                f"https://api.dataforsyningen.dk/dhm?"
+                f"service=WMS&request=GetLegendGraphic"
+                f"&layer={layer_name}&style={style_name}"
+                f"&version=1.1.1&format=image/png"
+                f"&token=" + st.secrets['token']
+            )
             # Display the legend in Streamlit
             st.image(legend_url, caption=f"Legend for {layer_name} ({style_name})")
 
