@@ -292,10 +292,6 @@ if check_password():
             # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
             m3 = folium.Map(location=[latitude, longitude], zoom_start=17, crs='EPSG3857')
 
-            # Tilføj en markør ved den fundne adresse, hvis tilgængelig
-            if location:
-                folium.Marker([latitude, longitude], popup=adresse).add_to(m3)
-
             # WMS-serverens URL
             wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
@@ -364,10 +360,6 @@ if check_password():
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
         m4 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
-        # Tilføj en markør ved den fundne adresse, hvis tilgængelig
-        if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m4)
-
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
@@ -428,9 +420,7 @@ if check_password():
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
         m5 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
-        # Tilføj en markør ved den fundne adresse, hvis tilgængelig
-        if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m5)
+
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/hip_dtg_10m_100m?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
