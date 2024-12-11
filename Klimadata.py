@@ -139,6 +139,8 @@ if check_password():
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m1)
 
+        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m1)
+
         # Construct the GetLegendGraphic URL
         # Construct the legend URL
         legend_url = (
@@ -230,6 +232,8 @@ if check_password():
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
             legend_html= legendhtml(legend_url)
 
+        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m2)
+
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m2)
 
@@ -320,6 +324,7 @@ if check_password():
 
             # Tilføj kontrolpanel til at vælge mellem lagene
             folium.LayerControl(position='topright', collapsed=False).add_to(m3)
+            folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m3)
 
                 
 
@@ -392,6 +397,8 @@ if check_password():
         legend_url = f'https://api.dataforsyningen.dk/dhm?token={st.secrets['token']}&version=1.1.1&service=WMS&request=GetLegendGraphic&layer={selected_layer_value1}&format=image/png&STYLE={selected_style_value}'
         legend_html = legendhtml(legend_url)
 
+        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m4)
+
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m4)
 
@@ -457,6 +464,8 @@ if check_password():
         legend_url = f'https://api.dataforsyningen.dk/hip_dtg_10m_100m?token={st.secrets['token']}&version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer={selected_layer_value}&format=image/png&STYLE={selected_style_value}'
         legend_html = legendhtml(legend_url)
 
+        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m5)
+
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m5)
         
@@ -499,6 +508,8 @@ if check_password():
             control=True,
             show=True
         ).add_to(m6)
+
+        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m6)
 
         
 
