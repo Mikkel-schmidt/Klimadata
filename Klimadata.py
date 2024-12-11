@@ -282,6 +282,9 @@ if check_password():
                 show=True,
             ).add_to(m3)
 
+            # Tilføj kontrolpanel til at vælge mellem lagene
+            folium.LayerControl(position='topright', collapsed=False).add_to(m3)
+
             # Construct the GetLegendGraphic URL
             # Construct the legend URL
             legend_url = (
@@ -292,27 +295,13 @@ if check_password():
                 f"&token=" + st.secrets['token']
             )
 
-            col1, col2 = st.columns([3,1])
+            col1, col2 = st.columns([4,1])
             with col1:
                 # Vis kortet i Streamlit og opdater det dynamisk
                 st_folium(m3, width='100%', height=700)
             with col2:
                 st.image(legend_url)
-                
-
-            legend_url = 'https://api.dataforsyningen.dk/dhm?token=' + st.secrets['token'] + '&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=dhm_flow_ekstremregn&format=image/png&STYLE=default'
-            legend_html = legendhtml(legend_url)
-
-            # Tilføj kontrolpanel til at vælge mellem lagene
-            folium.LayerControl(position='topright', collapsed=False).add_to(m3)
-
-            col1, col2 = st.columns([3,1])
-            with col1:
-                # Vis kortet i Streamlit og opdater det dynamisk
-                st_folium(m3, width='100%', height=700)
-            with col2:
-                # Tilføj signaturforklaringen til kortet som en HTML-element
-                st.components.v1.html(legend_html, height=250)
+            
 
     with tab4: ############# GUMMISTØVLE ###################
         # Create a selectbox for layers (frontend-friendly names)
