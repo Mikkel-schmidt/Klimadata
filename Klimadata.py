@@ -236,7 +236,7 @@ if check_password():
         st.write("Available styles:", styles)
 
         # Get the legend URL for the chosen layer
-        style_name = "DHM/Havvand på Land 6 m" # Replace with the style you need
+        style_name = "havvandpaaland_6" # Replace with the style you need
         if style_name not in styles:
             st.error(f"Style '{style_name}' not found for layer '{layer_name}'.")
         else:
