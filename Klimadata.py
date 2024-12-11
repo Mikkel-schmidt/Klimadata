@@ -42,18 +42,19 @@ if check_password():
     # Opret en geokodningsfunktion ved hjælp af Nominatim
     geolocator = Nominatim(user_agent="Klimadata")
 
+    col1, col2 = st.columns([3,1])
     # Angiv adressen
-    adresse = st.text_input("Skriv adresse", value="Store Torv 4, 8000 Aarhus")
+    adresse = col1.text_input("Skriv adresse", value="Store Torv 4, 8000 Aarhus")
 
     # Geokod adressen (find koordinaterne)
     location = geolocator.geocode(adresse, timeout=10)
 
     # Tjek om geokodningen lykkedes
     if location:
-        st.success('Adresse fundet')
+        col2.success('Adresse fundet')
         latitude, longitude = location.latitude, location.longitude
     else:
-        st.write("Kunne ikke finde den angivne adresse.")
+        col2.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
     with st.expander('Årshændelser og varselsniveauer'):
@@ -124,8 +125,24 @@ if check_password():
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m1)
 
-        # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m1, width='100%', height=700)
+        # Construct the GetLegendGraphic URL
+        # Construct the legend URL
+        legend_url = (
+            f"https://api.dataforsyningen.dk/dhm?"
+            f"service=WMS&request=GetLegendGraphic"
+            f"&layer={selected_layer_value}&style={selected_style_value}"
+            f"&version=1.1.1&format=image/png"
+            f"&token=" + st.secrets['token']
+        )
+
+        col1, col2 = st.columns([3,1])
+        with col1:
+            # Vis kortet i Streamlit og opdater det dynamisk
+            st_folium(m1, width='100%', height=700)
+        with col2:
+            st.image(legend_url)
+
+
 
     with tab2: ############# EKSTREMREGN ###################
         # Create a selectbox for layers (frontend-friendly names)
@@ -298,7 +315,7 @@ if check_password():
                 st_folium(m3, width='100%', height=700)
             with col2:
                 # Tilføj signaturforklaringen til kortet som en HTML-element
-                st.components.v1.html(legend_html, height=250)
+                st.components.v1.html(legend_html)
 
     with tab4: ############# GUMMISTØVLE ###################
         # Create a selectbox for layers (frontend-friendly names)
