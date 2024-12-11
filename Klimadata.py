@@ -227,6 +227,14 @@ if check_password():
         layer_name = layers[0]  # Replace with your desired layer name
         st.write(f"Using layer: {layer_name}")
 
+        # Choose a layer (replace with the desired layer name)
+        #layer_name = "dhm_terraen"  # Replace with your desired layer name
+        layer = wms[layer_name]
+
+        # Display available styles for the chosen layer
+        styles = layer.styles
+        st.write("Available styles:", styles)
+
         # Get the legend URL for the chosen layer
         layer = wms[layer_name]
         legend_url = layer.styles[next(iter(layer.styles))]['legend']  # Use the first available style
