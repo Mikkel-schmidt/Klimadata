@@ -7,6 +7,8 @@ import xml.etree.ElementTree as ET
 import math
 import folium
 from folium.raster_layers import WmsTileLayer
+from folium import Map, Marker, LayerControl, TileLayer, raster_layers
+from folium.plugins import FloatImage
 from geopy.geocoders import Nominatim
 from streamlit_folium import st_folium
 from owslib.wms import WebMapService
@@ -211,6 +213,8 @@ if check_password():
 
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m2)
+        # Use Folium's FloatImage plugin to place the legend
+        FloatImage(legend_url, bottom=5, left=5).add_to(m2) 
 
         col1, col2 = st.columns([3,1])
         with col1:
