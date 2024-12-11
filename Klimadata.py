@@ -670,28 +670,32 @@ if check_password():
         )
 
         # Map filters to numeric values
-        selected_season_value = season_mapping[selected_season]
-        selected_value_type_value = value_type_mapping[selected_value_type]
-        selected_scenarie_value = scenarie_mapping[selected_scenarie]
-        selected_periode_value = periode_mapping[selected_periode]
+        filters = {
+            "aarstid": season_mapping[selected_season],
+            "visningafvaerdier": value_type_mapping[selected_value_type],
+            "scenarie": scenarie_mapping[selected_scenarie],
+            "periode": periode_mapping[selected_periode],
+        }
 
 
 
-        with st.spinner('Anvender filtre...'):
-            df_gdf = st.session_state['Klimaatlas_gdf']
-            filtered_gdf = df_gdf.loc[
-                (df_gdf['aarstid'] == selected_season_value) &
-                (df_gdf['visningafvaerdier'] == selected_value_type_value) &
-                # (st.session_state['Klimaatlas_gdf']['percentil'] == selected_percentil_value) &
-                (df_gdf['scenarie'] == selected_scenarie_value) &
-                (df_gdf['periode'] == selected_periode_value)
-            ]
-            gdf = gpd.GeoDataFrame(filtered_gdf, geometry='SHAPE_geometry', crs="EPSG:25832")
-            gdf.to_crs(epsg=4326)
-            punkt = Point(longitude, latitude)
-            #match = gdf[gdf.contains(punkt)]
-            #st.write(gdf.intersects(punkt))
-        #st.write(gdf.head()) 
+        # Check if filters have changed, recompute `gdf` only if necessary
+        if "last_filters" not in st.session_state or st.session_state["last_filters"] != filters:
+            with st.spinner("Anvender filtre..."):
+                df_gdf = st.session_state["Klimaatlas_gdf"]
+                filtered_gdf = df_gdf.loc[
+                    (df_gdf["aarstid"] == filters["aarstid"])
+                    & (df_gdf["visningafvaerdier"] == filters["visningafvaerdier"])
+                    & (df_gdf["scenarie"] == filters["scenarie"])
+                    & (df_gdf["periode"] == filters["periode"])
+                ]
+                gdf = gpd.GeoDataFrame(filtered_gdf, geometry="SHAPE_geometry", crs="EPSG:25832")
+                gdf = gdf.to_crs(epsg=4326)  # Convert to WGS84
+                st.session_state["gdf"] = gdf
+                st.session_state["last_filters"] = filters  # Update filter state
+
+        # Retrieve the current `gdf` from session state
+        gdf = st.session_state.get("gdf", gpd.GeoDataFrame())
 
 
         # Opret et nyt folium-kort centreret over Danmark
