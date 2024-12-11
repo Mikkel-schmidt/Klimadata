@@ -31,7 +31,7 @@ def legendhtml(legend_url):
     <img src="{legend_url}" alt="Legend" style="width: 100%;">
     </div>
     '''
-    return 
+    return legend_html
 
 st.logo('NRGi_grøn.png', link='https://nrgi.dk')
 
@@ -195,6 +195,7 @@ if check_password():
             # URL for signaturforklaringen (legend)
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
             legend_html= legendhtml(legend_url)
+
             
 
 
