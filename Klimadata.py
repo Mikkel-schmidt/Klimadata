@@ -53,6 +53,7 @@ if check_password():
     if location:
         col2.success('Adresse fundet')
         st.session_state['center'] = [location.latitude, location.longitude]
+        st.session_state['zoom'] = 15
         #st.session_state("center") = ([location.latitude, location.longitude])
         CENTER_START = [location.latitude, location.longitude]
         latitude, longitude = location.latitude, location.longitude
