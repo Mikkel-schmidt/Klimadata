@@ -312,7 +312,7 @@ if check_password():
             col1, col2 = st.columns([3,1])
             with col1:
                 # Vis kortet i Streamlit og opdater det dynamisk
-                st_folium(m3, width='100%', height='50%')
+                st_folium(m3, width='100%', height='10%')
             with col2:
                 # Tilføj signaturforklaringen til kortet som en HTML-element
                 st.components.v1.html(legend_html)
