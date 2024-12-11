@@ -707,7 +707,7 @@ if check_password():
         folium.LayerControl().add_to(m7)
         
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m7,
+        map_output = st_folium(m7,
                 width='100%', 
                 height=700,
                 center=st.session_state["center"],
