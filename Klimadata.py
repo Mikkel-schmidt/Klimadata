@@ -702,7 +702,13 @@ if check_password():
         folium.LayerControl().add_to(m7)
         
         # Vis kortet i Streamlit og opdater det dynamisk
-        st_folium(m7, width='100%', height=700)
+        st_folium(m7,
+                width='100%', 
+                height=700,
+                center=st.session_state["center"],
+                zoom=st.session_state["zoom"],
+                key="new7",
+                )
 
     with colum1:
         st.write('**Havvand**')
