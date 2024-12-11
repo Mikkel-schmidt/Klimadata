@@ -298,7 +298,7 @@ if check_password():
             col1, col2 = st.columns([4,1])
             with col1:
                 # Vis kortet i Streamlit og opdater det dynamisk
-                st_folium(m3, width='100%', height=700)
+                st_folium(m3, width='100%', height='100%')
             with col2:
                 st.image(legend_url)
             
