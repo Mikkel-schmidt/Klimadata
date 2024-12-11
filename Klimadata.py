@@ -711,9 +711,7 @@ if check_password():
             legend_name=valgt_variabel
         ).add_to(m7)
 
-        fg = folium.FeatureGroup(name="Data")
-        fg.add_child(folium.Marker(CENTER_START, popup=adresse))
-        fg.add_to(m7)
+        folium.Marker(CENTER_START, popup=adresse).add_to(m7)
 
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m7)
