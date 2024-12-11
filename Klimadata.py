@@ -52,6 +52,7 @@ if check_password():
     # Tjek om geokodningen lykkedes
     if location:
         col2.success('Adresse fundet')
+        CENTER_START = st.session_state([location.latitude, location.longitude])
         latitude, longitude = location.latitude, location.longitude
     else:
         col2.write("Kunne ikke finde den angivne adresse.")
@@ -171,11 +172,11 @@ if check_password():
         
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-        m2 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
+        m2 = folium.Map(location=CENTER_START, zoom_start=15, crs='EPSG3857')
 
         # Tilføj en markør ved den fundne adresse, hvis tilgængelig
         if location:
-            folium.Marker([latitude, longitude], popup=adresse).add_to(m2)
+            folium.Marker(CENTER_START, popup=adresse).add_to(m2)
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
@@ -232,7 +233,12 @@ if check_password():
         col1, col2 = st.columns([3,1])
         with col1:
             # Vis kortet i Streamlit og opdater det dynamisk
-            st_folium(m2, width='100%', height=700)
+            st_folium(m2, 
+                      width='100%', 
+                      height=700,
+                      center=st.session_state["center"],
+                      zoom=st.session_state["zoom"],
+                      key="new",)
         with col2:
             st.image(legend_url)
             if st.session_state['Kloakoplande'] == True:
