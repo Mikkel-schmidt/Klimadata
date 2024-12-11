@@ -41,19 +41,20 @@ st.logo('NRGi_grøn.png', link='https://nrgi.dk')
 if check_password():
     # Opret en geokodningsfunktion ved hjælp af Nominatim
     geolocator = Nominatim(user_agent="Klimadata")
+    col1, col2 = st.columns([3,1])
 
     # Angiv adressen
-    adresse = st.text_input("Skriv adresse", value="Store Torv 4, 8000 Aarhus")
+    adresse = col1.text_input("Skriv adresse", value="Store Torv 4, 8000 Aarhus")
 
     # Geokod adressen (find koordinaterne)
     location = geolocator.geocode(adresse, timeout=10)
 
     # Tjek om geokodningen lykkedes
     if location:
-        st.success('Adresse fundet')
+        col2.success('Adresse fundet')
         latitude, longitude = location.latitude, location.longitude
     else:
-        st.write("Kunne ikke finde den angivne adresse.")
+        col2.write("Kunne ikke finde den angivne adresse.")
         latitude, longitude = 56, 10  # Fallback to Denmark's center if location is not found
 
     with st.expander('Årshændelser og varselsniveauer'):
