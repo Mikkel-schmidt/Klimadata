@@ -199,6 +199,9 @@ if check_password():
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
             legend_html= legendhtml(legend_url)
 
+        # Tilføj kontrolpanel til at vælge mellem lagene
+        folium.LayerControl(position='topright', collapsed=False).add_to(m2)
+
         # Construct the GetLegendGraphic URL
         # Construct the legend URL
         legend_url = (
@@ -208,13 +211,6 @@ if check_password():
             f"&version=1.1.1&format=image/png"
             f"&token=" + st.secrets['token']
         )
-
-
-
-        # Tilføj kontrolpanel til at vælge mellem lagene
-        folium.LayerControl(position='topright', collapsed=False).add_to(m2)
-        # Use Folium's FloatImage plugin to place the legend
-        FloatImage(legend_url, bottom=5, left=5).add_to(m2) 
 
         col1, col2 = st.columns([3,1])
         with col1:
@@ -226,44 +222,7 @@ if check_password():
                 # signaturforklaringen til kortet som en HTML-element
                 st.components.v1.html(legend_html)
 
-        # Construct the WMS GetCapabilities URL
-        wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
-
-        # Initialize the WMS service
-        wms = WebMapService(wms_url)
-
-        # List available layers
-        layers = list(wms.contents)
-        st.write("Available layers:", layers)
-
-        # Choose a layer (for demonstration, we pick the first one)
-        layer_name = layers[0]  # Replace with your desired layer name
-        st.write(f"Using layer: {layer_name}")
-
-        # Choose a layer (replace with the desired layer name)
-        #layer_name = "dhm_terraen"  # Replace with your desired layer name
-        layer = wms[layer_name]
-
-        # Display available styles for the chosen layer
-        styles = layer.styles
-        st.write("Available styles:", styles)
-
-        # Get the legend URL for the chosen layer
-        style_name = "havvandpaaland_6" # Replace with the style you need
-        if style_name not in styles:
-            st.error(f"Style '{style_name}' not found for layer '{layer_name}'.")
-        else:
-            # Construct the GetLegendGraphic URL
-            # Construct the legend URL
-            legend_url = (
-                f"https://api.dataforsyningen.dk/dhm?"
-                f"service=WMS&request=GetLegendGraphic"
-                f"&layer={layer_name}&style={style_name}"
-                f"&version=1.1.1&format=image/png"
-                f"&token=" + st.secrets['token']
-            )
-            # Display the legend in Streamlit
-            st.image(legend_url, caption=f"Legend for {layer_name} ({style_name})")
+       
 
     with tab3: ############# FLOW ##########################
 
@@ -322,6 +281,26 @@ if check_password():
                 control=True,  # Vis kontrolelement for at vælge lag
                 show=True,
             ).add_to(m3)
+
+            # Construct the GetLegendGraphic URL
+            # Construct the legend URL
+            legend_url = (
+                f"https://api.dataforsyningen.dk/dhm?"
+                f"service=WMS&request=GetLegendGraphic"
+                f"&layer={selected_layer_value}&style={selected_style_value}"
+                f"&version=1.1.1&format=image/png"
+                f"&token=" + st.secrets['token']
+            )
+
+            col1, col2 = st.columns([3,1])
+            with col1:
+                # Vis kortet i Streamlit og opdater det dynamisk
+                st_folium(m3, width='100%', height=700)
+            with col2:
+                st.image(legend_url)
+                if st.session_state['Kloakoplande'] == True:
+                    # signaturforklaringen til kortet som en HTML-element
+                    st.components.v1.html(legend_html)
 
             legend_url = 'https://api.dataforsyningen.dk/dhm?token=' + st.secrets['token'] + '&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=dhm_flow_ekstremregn&format=image/png&STYLE=default'
             legend_html = legendhtml(legend_url)
