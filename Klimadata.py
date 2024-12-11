@@ -686,7 +686,7 @@ if check_password():
         m7 = folium.Map(location=st.session_state['center'], zoom_start=st.session_state['zoom'])
         fg = folium.FeatureGroup(name="Data")
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
-        fg.Choropleth(
+        folium.Choropleth(
             geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
             name=valgt_variabel,
             data=gdf,
