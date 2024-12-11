@@ -695,7 +695,7 @@ if check_password():
 
 
         # Opret et nyt folium-kort centreret over Danmark
-        m7 = folium.Map(location=st.session_state['center'], zoom_start=st.session_state['zoom'])
+        m7 = folium.Map(location=st.session_state['center'], zoom_start=8)
         fg = folium.FeatureGroup(name="Data")
 
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
