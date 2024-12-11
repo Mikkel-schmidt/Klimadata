@@ -40,7 +40,7 @@ def legendhtml(legend_url):
 icon = folium.CustomIcon(
     "Bolig_enkelt.png",
     icon_size=(38, 38),
-    icon_anchor=(0,0),
+    icon_anchor=(19,19),
     popup_anchor=(-3, -76),
 )
 
