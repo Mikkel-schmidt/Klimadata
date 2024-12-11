@@ -197,7 +197,15 @@ if check_password():
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
             legend_html= legendhtml(legend_url)
 
-            
+        # Construct the GetLegendGraphic URL
+        # Construct the legend URL
+        legend_url = (
+            f"https://api.dataforsyningen.dk/dhm?"
+            f"service=WMS&request=GetLegendGraphic"
+            f"&layer={selected_layer_value}&style={selected_style_value}"
+            f"&version=1.1.1&format=image/png"
+            f"&token=" + st.secrets['token']
+        )
 
 
 
@@ -209,6 +217,7 @@ if check_password():
             # Vis kortet i Streamlit og opdater det dynamisk
             st_folium(m2, width='100%', height=700)
         with col2:
+            st.image(legend_url, caption=f"Legend for {layer_name} ({style_name})")
             if st.session_state['Kloakoplande'] == True:
                 # signaturforklaringen til kortet som en HTML-element
                 st.components.v1.html(legend_html, height=250)
