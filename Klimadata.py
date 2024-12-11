@@ -221,7 +221,7 @@ if check_password():
             # Vis kortet i Streamlit og opdater det dynamisk
             st_folium(m2, width='100%', height=700)
         with col2:
-            st.image(legend_url, caption=f"Legend for {selected_layer_name} ({selected_style_name})")
+            st.image(legend_url)
             if st.session_state['Kloakoplande'] == True:
                 # signaturforklaringen til kortet som en HTML-element
                 st.components.v1.html(legend_html)
