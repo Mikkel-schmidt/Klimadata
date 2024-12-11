@@ -685,8 +685,9 @@ if check_password():
         # Opret et nyt folium-kort centreret over Danmark
         m7 = folium.Map(location=st.session_state['center'], zoom_start=st.session_state['zoom'])
         fg = folium.FeatureGroup(name="Data")
+
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
-        folium.Choropleth(
+        fg.add_Child(folium.Choropleth(
             geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
             name=valgt_variabel,
             data=gdf,
@@ -696,9 +697,9 @@ if check_password():
             fill_opacity=0.7,
             line_opacity=0.2,
             legend_name=valgt_variabel
-        ).add_to(m7)
+        ))
 
-        fg.Marker(CENTER_START, popup=adresse).add_to(m7)
+        fg.add_Child(folium.Marker(CENTER_START, popup=adresse))#.add_to(m7)
 
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m7)
@@ -710,6 +711,7 @@ if check_password():
                 center=st.session_state["center"],
                 zoom=st.session_state["zoom"],
                 key="new7",
+                feature_group_to_add=fg,
                 )
 
     with colum1:
