@@ -1,0 +1,6 @@
+[theme]
+primaryColor = "#004e4a"              # Vibrant orange for interactive elements
+backgroundColor = "#FFFFFF"           # Dark theme background
+secondaryBackgroundColor = "#006e64"  # Slightly lighter sidebar
+textColor = "#006e64"                 # White text
+font = "Sans Serif"                    # Monospace font for a coding-style look
