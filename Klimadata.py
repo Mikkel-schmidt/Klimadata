@@ -633,7 +633,7 @@ if check_password():
             gdf.to_crs(epsg=4326)
             punkt = Point(longitude, latitude)
             #match = gdf[gdf.contains(punkt)]
-            st.write(gdf.intersects(punkt))
+            #st.write(gdf.intersects(punkt))
         #st.write(gdf.head()) 
 
 
