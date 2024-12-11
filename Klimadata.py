@@ -14,6 +14,7 @@ from streamlit_folium import st_folium
 from owslib.wms import WebMapService
 import requests
 import json
+import base64
 
 from streamlit_functions import check_password, find_laveste_punkt, beregn_vanddybde, Ekstremregn_punkt
 
@@ -525,21 +526,24 @@ if check_password():
 
         # Parse JSON data
         legend_data = json.loads(response.text)
-        st.write(legend_data)
 
-        
+        # Loop through layers and display legend items
+        for layer in legend_data['layers']:
+            layer_name = layer.get('layerName', 'Unknown Layer')  # Get layer name
+            st.subheader(f"Layer: {layer_name}")  # Display layer name
 
-        for layer in legend_data['layers'][2:]:
+            # Loop through legend items in each layer
             for legend_item in layer['legend']:
-                label = legend_item['label']
-                # URL til hvert symbolbillede
-                image_url = f"data:image/png;base64,{legend_item['imageData']}" #f"https://gis.nst.dk/server/rest/services/ekstern/OSD_20aars_40cm/MapServer/{legend_item['url']}"
-                
-                # Vis label og billede
-                if label:
-                    col11, col22 = col2.columns([1, 5])
-                    col11.image(image_url)
-                    col22.write(f"{label.strip()}")
+                label = legend_item.get('label', '').strip()  # Get the label
+                image_data = legend_item.get('imageData', '')  # Get the base64 image data
+
+                # Decode base64 image data
+                if image_data:
+                    image_bytes = base64.b64decode(image_data)
+                    st.image(image_bytes, caption=label if label else "No label", use_column_width=False)
+
+                else:
+                    st.write("No image available")
 
     with tab7:
 

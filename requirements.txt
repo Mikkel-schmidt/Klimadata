@@ -10,3 +10,4 @@ geopandas
 shapely
 requests
 owslib
+base64
