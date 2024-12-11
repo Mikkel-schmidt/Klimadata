@@ -236,12 +236,15 @@ if check_password():
         st.write("Available styles:", styles)
 
         # Get the legend URL for the chosen layer
-        layer = wms[layer_name]
-        legend_url = layer.styles[next(iter(layer.styles))]['legend']  # Use the first available style
-        st.write("Legend URL:", legend_url)
+        style_name = styles[1] # Replace with the style you need
+        if style_name not in styles:
+            st.error(f"Style '{style_name}' not found for layer '{layer_name}'.")
+        else:
+            # Construct the GetLegendGraphic URL
+            legend_url = f"https://api.dataforsyningen.dk/dhm?service=WMS&request=GetLegendGraphic&layer={layer_name}&style={style_name}&token=" + st.secrets['token']
 
-        # Embed the legend in Streamlit
-        st.image(legend_url, caption="Layer Legend")
+            # Display the legend in Streamlit
+            st.image(legend_url, caption=f"Legend for {layer_name} ({style_name})")
 
     with tab3: ############# FLOW ##########################
 
