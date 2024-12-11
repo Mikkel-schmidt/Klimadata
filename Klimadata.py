@@ -697,7 +697,7 @@ if check_password():
             fill_opacity=0.7,
             line_opacity=0.2,
             legend_name=valgt_variabel
-        )
+        ).add_to(m7)
 
         fg = folium.FeatureGroup(name="Data")
         fg.add_child(folium.Marker(CENTER_START, popup=adresse))
