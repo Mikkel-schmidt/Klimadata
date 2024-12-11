@@ -36,6 +36,14 @@ def legendhtml(legend_url):
     '''
     return legend_html
 
+#icon_image = url("Bolig_enkelt.png")
+icon = folium.CustomIcon(
+    "Bolig_enkelt.png",
+    icon_size=(38, 95),
+    icon_anchor=(22, 94),
+    popup_anchor=(-3, -76),
+)
+
 st.logo('NRGi_grøn.png', link='https://nrgi.dk')
 
 if check_password():
@@ -711,7 +719,7 @@ if check_password():
             legend_name=valgt_variabel
         ).add_to(m7)
 
-        folium.Marker(CENTER_START, popup=adresse).add_to(m7)
+        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m7)
 
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m7)
