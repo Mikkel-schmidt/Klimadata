@@ -525,6 +525,7 @@ if check_password():
 
         # Parse JSON data
         legend_data = json.loads(response.text)
+        st.write(legend_data)
 
         
 
