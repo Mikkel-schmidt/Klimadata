@@ -52,7 +52,8 @@ if check_password():
     # Tjek om geokodningen lykkedes
     if location:
         col2.success('Adresse fundet')
-        CENTER_START = st.session_state([location.latitude, location.longitude])
+        st.session_state("center") = [location.latitude, location.longitude]
+        CENTER_START = [location.latitude, location.longitude]
         latitude, longitude = location.latitude, location.longitude
     else:
         col2.write("Kunne ikke finde den angivne adresse.")
