@@ -3,4 +3,4 @@ primaryColor = "#006e64"              # Vibrant orange for interactive elements
 backgroundColor = "#FFFFFF"           # Dark theme background
 secondaryBackgroundColor = "#F0F2F6"  # Slightly lighter sidebar
 textColor = "#004e4a"                 # White text
-font = "Sans Serif"                    # Monospace font for a coding-style look
+font = "sans serif"                    # Monospace font for a coding-style look
