@@ -458,7 +458,7 @@ if check_password():
             st_folium(m5, width='100%', height=700)
         with col2:
             # Tilføj signaturforklaringen til kortet som en HTML-element
-            st.components.v1.html(legend_html, height=250)
+            st.components.v1.html(legend_html)
 
     with tab6: ############# VANDLØB #######################
         # Data fra https://oversvommelse.kyst.dk/planperioder/planperiode-2016-2021/plantrin-1/vandloebsoversvoemmelser
