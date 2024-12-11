@@ -525,9 +525,6 @@ if check_password():
 
         # Parse JSON data
         legend_data = json.loads(response.text)
-        st.write(legend_data)
-
-        
 
         for layer in legend_data['layers'][2:]:
             for legend_item in layer['legend']:
