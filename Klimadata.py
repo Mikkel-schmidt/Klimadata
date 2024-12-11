@@ -529,22 +529,20 @@ if check_password():
 
     with tab7:
 
-        # Funktion til at konvertere WKT-geometri, og håndtere ikke-strenge
-        def safe_wkt_loads(geom):
-            if isinstance(geom, str):  # Tjek om værdien er en streng
-                return wkt.loads(geom)
-            else:
-                return None  # Returner None, hvis geometrien ikke er en streng
-    
-        if 'Klimaatlas_gdf' not in st.session_state:
-            df_gdf = pd.read_csv("Klimaatlas_gdf.csv")
-            df_gdf = df_gdf.loc[df_gdf['percentil'] == 2]
-            df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(safe_wkt_loads)
-            st.session_state['Klimaatlas_gdf'] = df_gdf
-        
-        
-        c0, c1, c2, c3, c4 = st.columns(5)
-        c0.subheader('Filtre:')
+        # Cache the loading and preprocessing of the Klimaatlas data
+        @st.cache_data
+        def load_and_preprocess_data(file_path):
+            """Load and preprocess the Klimaatlas data."""
+            df_gdf = pd.read_csv(file_path)
+            df_gdf = df_gdf.loc[df_gdf['percentil'] == 2]  # Filter percentil
+            df_gdf['SHAPE_geometry'] = df_gdf['SHAPE_geometry'].apply(
+                lambda geom: wkt.loads(geom) if isinstance(geom, str) else None
+            )  # Safely load WKT geometries
+            return df_gdf
+
+        # Load Klimaatlas data if not already in session state
+        if "Klimaatlas_gdf" not in st.session_state:
+            st.session_state["Klimaatlas_gdf"] = load_and_preprocess_data("Klimaatlas_gdf.csv")
 
         # Opret en dictionary for at kortlægge årstiderne til deres numeriske værdier
         season_mapping = {
@@ -583,31 +581,31 @@ if check_password():
             "90%": 3
         }
 
-        # Selectbox for at vælge årstid
-        selected_season = c2.selectbox(
-            "Vælg årstid:",
-            options=list(season_mapping.keys())
-        )
+        # # Selectbox for at vælge årstid
+        # selected_season = c2.selectbox(
+        #     "Vælg årstid:",
+        #     options=list(season_mapping.keys())
+        # )
 
-        # Selectbox for at vælge visningstype
-        selected_value_type = c3.selectbox(
-            "Vælg visningstype:",
-            options=list(value_type_mapping.keys())
-        )
+        # # Selectbox for at vælge visningstype
+        # selected_value_type = c3.selectbox(
+        #     "Vælg visningstype:",
+        #     options=list(value_type_mapping.keys())
+        # )
 
-        # Selectbox for at vælge scenarie
-        selected_scenarie = c1.selectbox(
-            "Vælg scenarie:",
-            options=list(scenarie_mapping.keys()), 
-            index=2
-        )
+        # # Selectbox for at vælge scenarie
+        # selected_scenarie = c1.selectbox(
+        #     "Vælg scenarie:",
+        #     options=list(scenarie_mapping.keys()), 
+        #     index=2
+        # )
 
-        # Selectbox for at vælge periode
-        selected_periode = c4.selectbox(
-            "Vælg periode:",
-            options=list(periode_mapping.keys()), 
-            index=3
-        )
+        # # Selectbox for at vælge periode
+        # selected_periode = c4.selectbox(
+        #     "Vælg periode:",
+        #     options=list(periode_mapping.keys()), 
+        #     index=3
+        # )
 
         # # Selectbox for at vælge percentil
         # selected_percentil = c5.selectbox(
@@ -616,10 +614,10 @@ if check_password():
         # )
 
         # Få de numeriske værdier for hver selectbox
-        selected_season_value = season_mapping[selected_season]
-        selected_value_type_value = value_type_mapping[selected_value_type]
-        selected_scenarie_value = scenarie_mapping[selected_scenarie]
-        selected_periode_value = periode_mapping[selected_periode]
+        # selected_season_value = season_mapping[selected_season]
+        # selected_value_type_value = value_type_mapping[selected_value_type]
+        # selected_scenarie_value = scenarie_mapping[selected_scenarie]
+        # selected_periode_value = periode_mapping[selected_periode]
         # selected_percentil_value = percentil_mapping[selected_percentil]
 
         
@@ -655,15 +653,29 @@ if check_password():
             'toerreperiode': "Længste tørre periode"
         }
 
+        c0, c1, c2, c3, c4 = st.columns(5)
+        c0.subheader('Filtre:')
+        selected_season = c2.selectbox("Vælg årstid:", options=season_mapping.keys())
+        selected_value_type = c3.selectbox("Vælg visningstype:", options=value_type_mapping.keys())
+        selected_scenarie = c1.selectbox("Vælg scenarie:", options=scenarie_mapping.keys(), index=2)
+        selected_periode = c4.selectbox("Vælg periode:", options=periode_mapping.keys(), index=3)
+
+
         c00, c01 = st.columns([1,4])
         c00.subheader('Klimavariabel:')
-
-        # Opret en selectbox til valg af klimavariabel
         valgt_variabel = c01.selectbox(
             "Vælg en klimavariabel:",
-            options=list(klimavariabler.keys()),  # Vis de tekniske navne som options
-            format_func=lambda x: klimavariabler[x]  # Viser de letforståelige navne
+            options=klimavariabler.keys(),
+            format_func=lambda x: klimavariabler[x],
         )
+
+        # Map filters to numeric values
+        selected_season_value = season_mapping[selected_season]
+        selected_value_type_value = value_type_mapping[selected_value_type]
+        selected_scenarie_value = scenarie_mapping[selected_scenarie]
+        selected_periode_value = periode_mapping[selected_periode]
+
+
 
         with st.spinner('Anvender filtre...'):
             df_gdf = st.session_state['Klimaatlas_gdf']
