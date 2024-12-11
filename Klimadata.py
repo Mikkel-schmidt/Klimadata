@@ -52,8 +52,10 @@ if check_password():
     # Tjek om geokodningen lykkedes
     if location:
         col2.success('Adresse fundet')
-        st.session_state['center'] = [location.latitude, location.longitude]
-        st.session_state['zoom'] = 15
+        if "center" not in st.session_state:
+            st.session_state["center"] = [location.latitude, location.longitude]
+        if "zoom" not in st.session_state:
+            st.session_state["zoom"] = 15
         #st.session_state("center") = ([location.latitude, location.longitude])
         CENTER_START = [location.latitude, location.longitude]
         latitude, longitude = location.latitude, location.longitude
@@ -681,10 +683,10 @@ if check_password():
 
 
         # Opret et nyt folium-kort centreret over Danmark
-        m7 = folium.Map(location=[55.6761, 12.5683], zoom_start=10)
-
+        m7 = folium.Map(location=st.session_state['center'], zoom_start=st.session_state['zoom'])
+        fg = folium.FeatureGroup(name="Data")
         # Tilføj Choropleth lag for at farve kommunerne efter skybrud
-        folium.Choropleth(
+        fg.Choropleth(
             geo_data=gdf.to_json(),  # GeoDataFrame konverteret til GeoJSON
             name=valgt_variabel,
             data=gdf,
@@ -696,7 +698,7 @@ if check_password():
             legend_name=valgt_variabel
         ).add_to(m7)
 
-        folium.Marker([latitude, longitude], popup=adresse).add_to(m7)
+        fg.Marker(CENTER_START, popup=adresse).add_to(m7)
 
         # Tilføj kontrol for lag
         folium.LayerControl().add_to(m7)
