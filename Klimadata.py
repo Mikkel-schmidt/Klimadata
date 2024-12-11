@@ -539,7 +539,7 @@ if check_password():
                 if label:
                     col11, col22 = col2.columns([1, 5])
                     col11.image(image_url)
-                    col22.write(f"{label.strip()}")
+                    col22.write(f"{label}")
 
     with tab7:
 
