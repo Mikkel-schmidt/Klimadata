@@ -226,7 +226,7 @@ if check_password():
             legend_url = 'https://geoserver.plandata.dk/geoserver/wms?REQUEST=GetLegendGraphic&SERVICE=WMS&VERSION=1.1.1&FORMAT=image/png&LAYER=pdk:theme_pdk_kloakopland_vedtaget_v&STYLE=kloakopland_vedtaget'
             legend_html= legendhtml(legend_url)
 
-        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m2)
+        #folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m2)
 
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m2)
