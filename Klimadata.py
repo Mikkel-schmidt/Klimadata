@@ -247,7 +247,7 @@ if check_password():
             st_folium(m2, 
                       width='100%', 
                       height=700,
-                      center=st.session_state["center"],
+                      center=CENTER_START,
                       zoom=st.session_state["zoom"],
                       key="new",)
         with col2:
