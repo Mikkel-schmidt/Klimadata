@@ -185,7 +185,7 @@ if check_password():
         
 
         # Opret et Folium-kort centreret på den fundne adresse eller fallback-location
-        m2 = folium.Map(location=CENTER_START, zoom_start=15, crs='EPSG3857')
+        m2 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # WMS-serverens URL
         wms_url = 'https://api.dataforsyningen.dk/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
