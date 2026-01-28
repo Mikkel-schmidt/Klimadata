@@ -137,7 +137,7 @@ if check_password():
         # Tilføj kontrolpanel til at vælge mellem lagene
         folium.LayerControl(position='topright', collapsed=False).add_to(m1)
 
-        folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m1)
+        #folium.Marker(CENTER_START, popup=adresse, icon=icon).add_to(m1)
 
         # Construct the GetLegendGraphic URL
         # Construct the legend URL
