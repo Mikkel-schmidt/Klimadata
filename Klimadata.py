@@ -234,7 +234,7 @@ if check_password():
         # Construct the GetLegendGraphic URL
         # Construct the legend URL
         legend_url = (
-            f"https://api.dataforsyningen.dk/dhm?"
+            f"https://api.dataforsyningen.dk/wms/dhm?"
             f"service=WMS&request=GetLegendGraphic"
             f"&layer={selected_layer_value}&style={selected_style_value}"
             f"&version=1.1.1&format=image/png"
