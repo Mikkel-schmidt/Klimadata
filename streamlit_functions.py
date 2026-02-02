@@ -41,7 +41,7 @@ def find_laveste_punkt(latitude, longitude):
     step_lat = lat_offset / 4
     step_lon = lon_offset / 4
 
-    wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=30494b8c7d48e71467a3bca51afaf457'
+    wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
     laveste_vaerdi = None
 
@@ -104,7 +104,7 @@ def beregn_vanddybde(value_0, vandstigning):
 @st.cache_data
 def Ekstremregn_punkt(latitude, longitude):
     bbox = f"{longitude - 0.005},{latitude - 0.005},{longitude + 0.005},{latitude + 0.005}"
-    wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=30494b8c7d48e71467a3bca51afaf457'
+    wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
 
     # Iterer gennem hver stil for at finde laveste niveau, hvor value_0 findes
 
