@@ -206,6 +206,8 @@ if check_password():
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
         ).add_to(m2)
+        st.write(selected_style_name)
+        st.write(selected_style_value)
 
         if st.session_state['Kloakoplande'] == True:
             # Tilføj WMS-lag dynamisk baseret på listen over lag
