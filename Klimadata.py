@@ -768,7 +768,7 @@ if check_password():
 
     with colu2:
         st.write('**Skybrud og ekstremregn**')
-        Ekstremregn_punkt(latitude, longitude)
+        #Ekstremregn_punkt(latitude, longitude)
 
     with colu3:
         st.write('**Vandløb**')
