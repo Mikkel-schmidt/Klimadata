@@ -115,7 +115,7 @@ if check_password():
         
 
         # WMS-serverens URL
-        wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+        wms_url = 'https://api.dataforsyningen.dk/wms/dhm?token=' + st.secrets['token']
 
         # Tilføj et baselayer
         folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m1)
@@ -295,7 +295,7 @@ if check_password():
             m3 = folium.Map(location=[latitude, longitude], zoom_start=17, crs='EPSG3857')
 
             # WMS-serverens URL
-            wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+            wms_url = 'https://api.dataforsyningen.dk/wms/dhm?token=' + st.secrets['token']
 
             # Tilføj et baselayer
             folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m3)
@@ -363,7 +363,7 @@ if check_password():
         m4 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # WMS-serverens URL
-        wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+        wms_url = 'https://api.dataforsyningen.dk/wms/dhm?token=' + st.secrets['token']
 
         # Tilføj et baselayer
         folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m4)
