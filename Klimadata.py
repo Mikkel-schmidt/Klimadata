@@ -188,7 +188,7 @@ if check_password():
         m2 = folium.Map(location=[latitude, longitude], zoom_start=15, crs='EPSG3857')
 
         # WMS-serverens URL
-        wms_url = 'https://api.dataforsyningen.dk/wms/dhm?service=WMS&request=GetCapabilities&token=' + st.secrets['token']
+        wms_url = 'https://api.dataforsyningen.dk/wms/dhm?token=' + st.secrets['token']
 
         # Tilføj et baselayer
         folium.TileLayer('CartoDB positron', name="CartoDB Positron").add_to(m2)
@@ -206,7 +206,7 @@ if check_password():
             control=True,  # Vis kontrolelement for at vælge lag
             show=True,
         ).add_to(m2)
-        st.write(selected_style_name)
+        st.write(selected_layer_value)
         st.write(selected_style_value)
 
         if st.session_state['Kloakoplande'] == True:
