@@ -142,7 +142,7 @@ if check_password():
         # Construct the GetLegendGraphic URL
         # Construct the legend URL
         legend_url = (
-            f"https://api.dataforsyningen.dk/dhm?"
+            f"https://api.dataforsyningen.dk/wms/dhm?"
             f"service=WMS&request=GetLegendGraphic"
             f"&layer={selected_layer_value}&style={selected_style_value}"
             f"&version=1.1.1&format=image/png"
@@ -155,7 +155,7 @@ if check_password():
             st_folium(m1, width='100%', height=700)
         with col2:
             st.image(legend_url)
-
+            st.write(wms_url)
 
 
     with tab2: ############# EKSTREMREGN ###################
@@ -318,7 +318,7 @@ if check_password():
 
                 
 
-            legend_url = 'https://api.dataforsyningen.dk/dhm?token=' + st.secrets['token'] + '&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=dhm_flow_ekstremregn&format=image/png&STYLE=default'
+            legend_url = 'https://api.dataforsyningen.dk/wms/dhm?token=' + st.secrets['token'] + '&version=1.1.1&service=WMS&request=GetLegendGraphic&layer=dhm_flow_ekstremregn&format=image/png&STYLE=default'
             legend_html = legendhtml(legend_url)
 
             
